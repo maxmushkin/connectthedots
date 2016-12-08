@@ -21,20 +21,11 @@ namespace ConnectTheDotsHelper
         public string guid;
 
         [DataMember]
-        public string displayname;
+        public string deviceid;
 
         [DataMember]
-        public string organization;
-
-        [DataMember]
-        public string location;
-
-        [DataMember]
-        public string measurename;
-
-        [DataMember]
-        public string unitofmeasure;
-
+        public string objecttype;
+        
         [DataMember]
         public string timecreated;
 
@@ -89,16 +80,12 @@ namespace ConnectTheDotsHelper
 
         // Collection of sensors
         public Dictionary<string, D2CMessage> Sensors { get; set; } = new Dictionary<string, D2CMessage>();
-        public void AddSensor(string MeasureName, string UnitOfMeasure)
+        public void AddSensor(string DisplayName)
         {
-            Sensors.Add(MeasureName, new D2CMessage
+            Sensors.Add(DisplayName, new D2CMessage
             {
                 guid = Guid,
-                displayname = DisplayName,
-                location = Location,
-                organization = Organization,
-                measurename = MeasureName,
-                unitofmeasure = UnitOfMeasure,
+                deviceid = DisplayName,
                 timecreated = DateTime.UtcNow.ToString("o"),
                 value = 0
             });
@@ -118,11 +105,9 @@ namespace ConnectTheDotsHelper
             }
         }
         public string Guid { get; set; }
-        public string DisplayName { get; set; }
-        public string Organization { get; set; }
-        public string Location { get; set; }
+        public string DeviceId { get; set; }
         public bool SendTelemetryData { get; set; }
-        public int SendTelemetryFreq { get; set; } = 1000;
+        public int SendTelemetryFreq { get; set; } = 5000;
         public bool IsConnected { get; set; } = false;
 
         // Sending and receiving tasks
@@ -237,9 +222,8 @@ namespace ConnectTheDotsHelper
                             {
                                 // Update the values that 
                                 sensor.Value.guid = this.Guid;
-                                sensor.Value.displayname = DisplayName;
-                                sensor.Value.location = Location;
                                 sensor.Value.timecreated = DateTime.UtcNow.ToString("o");
+                                sensor.Value.deviceid = DeviceId;
                                 dataToSend[index++] = sensor.Value;
                             }
                             // Send message

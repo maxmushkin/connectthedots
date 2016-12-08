@@ -1,7 +1,7 @@
 ﻿{
-    "iothubconnectionstring": "<connection-string>",
-    "deviceid": "<deviceid>",
-    "displayname": "My PC",
-    "organization": "My Org",
-    "location":  "My location"
+    "iothubconnectionstring": "HostName=smartbuildinghub.azure-devices.net;DeviceId=MaxiSensor1;SharedAccessKey=Mpsh6aKuC1Spnzze9AnVy5Mj2KmgmzlxW+UOPYmTckw=",
+    "deviceid": "MaxiSensor1",
+    "displayname": "Temperature in Kitchen",
+    "organization": "Appartment",
+    "location":  "Kitchen"
 }
