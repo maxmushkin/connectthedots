@@ -219,7 +219,7 @@
     <None Include="Resources\CTDLogoMedium.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamarinSimulatedSensors\SimulatedSensors.csproj">
+    <ProjectReference Include="..\SimulatedSensors\SimulatedSensors.csproj">
       <Project>{BB40B36F-BAF9-45E1-B333-352771318E9F}</Project>
       <Name>SimulatedSensors</Name>
     </ProjectReference>
