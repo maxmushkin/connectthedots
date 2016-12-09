@@ -34,8 +34,8 @@
     <Compile Include="..\..\Common\csharp\ConnectTheDotsHelper.cs">
       <Link>ConnectTheDotsHelper.cs</Link>
     </Compile>
-    <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="MyClass.cs" />
+    <Compile Include="C2DMessage.cs" />
+    <Compile Include="D2CMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConnectTheDotsHelper;
 using SimulatedSensors;
 
 namespace SimulatedSensors.Windows
 {
     public partial class Form1 : Form
     {
-        MyClass Device;
+        ConnectTheDots Device;
 
         private delegate void AppendAlert(string AlertText);
 
@@ -22,7 +23,7 @@ namespace SimulatedSensors.Windows
             InitializeComponent();
 
             // Initialize IoT Hub client
-            Device = new MyClass(textDeviceName.Text);
+            Device = new ConnectTheDots();
 
             // Prepare UI elements
             buttonConnect.Enabled = false;
@@ -32,10 +33,10 @@ namespace SimulatedSensors.Windows
             buttonSend.Click += ButtonSend_Click; ;
 
             textDeviceName.TextChanged += TextDeviceName_TextChanged;
-            //textDeviceName.Text = Device.DeviceId;
+            textDeviceName.Text = Properties.Settings.Default.DeviceId;
 
             textConnectionString.TextChanged += TextConnectionString_TextChanged;
-            textConnectionString.Text = Device.ConnectionString;
+            textConnectionString.Text = Properties.Settings.Default.ConnectionString;
 
             trackBarTemperature.ValueChanged += TrackBarTemperature_ValueChanged;
 
@@ -62,13 +63,28 @@ namespace SimulatedSensors.Windows
         private void TextConnectionString_TextChanged(object sender, EventArgs e)
         {
             Device.ConnectionString = textConnectionString.Text;
-            buttonConnect.Enabled = Device.checkConfig();
+            Properties.Settings.Default["ConnectionString"] = textConnectionString.Text;
+            Properties.Settings.Default.Save();
+            buttonConnect.Enabled = CheckConfig(Device);
         }
 
         private void TextDeviceName_TextChanged(object sender, EventArgs e)
         {
             Device.DeviceId = textDeviceName.Text;
-            buttonConnect.Enabled = Device.checkConfig();
+            Properties.Settings.Default["DeviceId"] = textDeviceName.Text;
+            Properties.Settings.Default.Save();
+            buttonConnect.Enabled = CheckConfig(Device);
+        }
+
+        private bool CheckConfig(ConnectTheDots device)
+        {
+            if(!string.IsNullOrEmpty(device.DeviceId) && !string.IsNullOrEmpty(device.ConnectionString))
+            {
+                device.AddSensor(device.DeviceId, device.ConnectionString);
+                return true;
+            }
+
+            return false;
         }
 
         private void ButtonSend_Click(object sender, EventArgs e)

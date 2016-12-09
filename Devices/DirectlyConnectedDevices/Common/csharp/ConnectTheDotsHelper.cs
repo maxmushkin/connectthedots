@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -13,62 +12,6 @@ using System.Threading.Tasks;
 
 namespace ConnectTheDotsHelper
 {
-    // Data contract defining Connect The Dots data telemetry format
-    [DataContract]
-    public class D2CMessage
-    {
-        [DataMember]
-        public string guid;
-
-        [DataMember]
-        public string deviceid;
-
-        [DataMember]
-        public string objecttype;
-        
-        [DataMember]
-        public string timecreated;
-
-        [DataMember]
-        public double value;
-    }
-
-    // Data contract defining Connect The Dots Cloud to Device message format
-    [DataContract]
-    public class C2DMessage
-    {
-        [DataMember]
-        public string alerttype;
-
-        [DataMember]
-        public string message;
-
-        [DataMember]
-        public string guid;
-
-        [DataMember]
-        public string displayname;
-
-        [DataMember]
-        public string organization;
-
-        [DataMember]
-        public string location;
-
-        [DataMember]
-        public string measurename;
-
-        [DataMember]
-        public string unitofmeasure;
-
-        [DataMember]
-        public string timecreated;
-
-        [DataMember]
-        public double value;
-
-    }
-
     /// <summary>
     /// ConnectTheDots class
     /// Provides helper functions for easily connect a device to Azure IoT Hub and send and receive messages to and from a ConnectTheDots website
@@ -80,12 +23,15 @@ namespace ConnectTheDotsHelper
 
         // Collection of sensors
         public Dictionary<string, D2CMessage> Sensors { get; set; } = new Dictionary<string, D2CMessage>();
-        public void AddSensor(string DisplayName)
+        public void AddSensor(string deviceId, string connectionString)
         {
-            Sensors.Add(DisplayName, new D2CMessage
+            ConnectionString = connectionString;
+            Sensors.Clear();
+
+            Sensors.Add(deviceId, new D2CMessage
             {
                 guid = Guid,
-                deviceid = DisplayName,
+                deviceid = deviceId,
                 timecreated = DateTime.UtcNow.ToString("o"),
                 value = 0
             });
@@ -109,6 +55,14 @@ namespace ConnectTheDotsHelper
         public bool SendTelemetryData { get; set; }
         public int SendTelemetryFreq { get; set; } = 5000;
         public bool IsConnected { get; set; } = false;
+
+        public void UpdateSensorData(string SensorName, double value)
+        {
+            foreach (var sensor in Sensors)
+            {
+                sensor.Value.value = value;
+            }
+        }
 
         // Sending and receiving tasks
         CancellationTokenSource TokenSource = new CancellationTokenSource();
