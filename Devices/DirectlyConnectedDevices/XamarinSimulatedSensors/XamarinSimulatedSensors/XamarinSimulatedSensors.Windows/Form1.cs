@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using XamarinSimulatedSensors;
+using SimulatedSensors;
 
-namespace XamarinSimulatedSensors.Windows
+namespace SimulatedSensors.Windows
 {
     public partial class Form1 : Form
     {

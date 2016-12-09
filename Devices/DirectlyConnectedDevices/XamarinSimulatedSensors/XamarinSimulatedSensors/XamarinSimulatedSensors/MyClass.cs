@@ -3,9 +3,9 @@ using System.Text;
 using System.Diagnostics;
 using System.Linq;
 using ConnectTheDotsHelper;
-using XamarinSimulatedSensors.Helpers;
+using SimulatedSensors.Helpers;
 
-namespace XamarinSimulatedSensors
+namespace SimulatedSensors
 {
     public class MyClass:ConnectTheDots
     {

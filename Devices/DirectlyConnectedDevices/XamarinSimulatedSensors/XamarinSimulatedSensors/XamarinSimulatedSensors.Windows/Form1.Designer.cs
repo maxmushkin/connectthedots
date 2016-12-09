@@ -1,4 +1,4 @@
-﻿namespace XamarinSimulatedSensors.Windows
+﻿namespace SimulatedSensors.Windows
 {
     partial class Form1
     {
@@ -67,7 +67,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::XamarinSimulatedSensors.Windows.Properties.Resources.CTDLogoMedium;
+            this.pictureBox1.Image = SimulatedSensors.Windows.Properties.Resources.CTDLogoMedium;
             this.pictureBox1.Location = new System.Drawing.Point(7, 7);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
