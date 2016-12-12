@@ -40,6 +40,8 @@ namespace SimulatedSensors.Windows
 
             trackBarTemperature.ValueChanged += TrackBarTemperature_ValueChanged;
 
+            TrackBarTemperature_ValueChanged(null, null);
+
             // Set focus to the connect button
             buttonConnect.Focus();
 
@@ -51,9 +53,15 @@ namespace SimulatedSensors.Windows
         {
             ConnectTheDotsHelper.C2DMessage message = ((ConnectTheDotsHelper.ConnectTheDots.ReceivedMessageEventArgs)e).Message;
             var textToDisplay = message.timecreated + " - Alert received:" + message.message + ": " + message.value + " " + message.unitofmeasure + "\r\n";
-            this.BeginInvoke(new AppendAlert((string text) => textAlerts.AppendText(text)), textToDisplay);
+            this.BeginInvoke(new AppendAlert(Target), textToDisplay);
         }
-        
+
+        private void Target(string text)
+        {
+            textAlerts.AppendText(text);
+            //textAlerts.SelectedText = text;
+        }
+
         private void TrackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             labelTemperature.Text = "Value: " + trackBarTemperature.Value;

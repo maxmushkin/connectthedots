@@ -123,7 +123,17 @@ namespace ConnectTheDotsHelper
                 if (deviceClient != null)
                 {
                     await deviceClient.SendEventAsync(msg);
-                    Debug.WriteLine("Sent telemetry data to IoT Hub\n" + data.ToString());
+                    var sentItem = data[0];
+                    var logmsg = "Sent telemetry data to IoT Hub\n";
+                    
+                    ReceivedMessage?.Invoke(this, new ReceivedMessageEventArgs(
+                        new C2DMessage() { message = logmsg,
+                                           value = sentItem.value,
+                                           alerttype = "sent",
+                                           timecreated = sentItem.timecreated.Substring(0, 19),
+                                           unitofmeasure = sentItem.objecttype
+                        }));
+                    Debug.WriteLine(logmsg);
                 }
                 else Debug.WriteLine("Connection To IoT Hub is not established. Cannot send message now");
                 
