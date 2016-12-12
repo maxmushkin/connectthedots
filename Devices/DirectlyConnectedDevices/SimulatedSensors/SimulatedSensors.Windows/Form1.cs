@@ -56,7 +56,7 @@ namespace SimulatedSensors.Windows
         
         private void TrackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
-            labelTemperature.Text = "Temperature: " + trackBarTemperature.Value;
+            labelTemperature.Text = "Value: " + trackBarTemperature.Value;
             Device.UpdateSensorData(Device.DeviceId, trackBarTemperature.Value);
         }
 

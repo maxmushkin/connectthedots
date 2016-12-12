@@ -47,7 +47,7 @@
             this.textDeviceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textDeviceName.Location = new System.Drawing.Point(7, 189);
-            this.textDeviceName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textDeviceName.Margin = new System.Windows.Forms.Padding(2);
             this.textDeviceName.Name = "textDeviceName";
             this.textDeviceName.Size = new System.Drawing.Size(398, 20);
             this.textDeviceName.TabIndex = 0;
@@ -57,7 +57,7 @@
             this.textConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textConnectionString.Location = new System.Drawing.Point(7, 229);
-            this.textConnectionString.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textConnectionString.Margin = new System.Windows.Forms.Padding(2);
             this.textConnectionString.Multiline = true;
             this.textConnectionString.Name = "textConnectionString";
             this.textConnectionString.Size = new System.Drawing.Size(398, 58);
@@ -67,9 +67,9 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = SimulatedSensors.Windows.Properties.Resources.CTDLogoMedium;
+            this.pictureBox1.Image = global::SimulatedSensors.Windows.Properties.Resources.CTDLogoMedium;
             this.pictureBox1.Location = new System.Drawing.Point(7, 7);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(396, 141);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -103,7 +103,7 @@
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConnect.Location = new System.Drawing.Point(143, 291);
-            this.buttonConnect.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(2);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(127, 19);
             this.buttonConnect.TabIndex = 5;
@@ -115,7 +115,7 @@
             this.trackBarTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarTemperature.Location = new System.Drawing.Point(7, 330);
-            this.trackBarTemperature.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.trackBarTemperature.Margin = new System.Windows.Forms.Padding(2);
             this.trackBarTemperature.Maximum = 100;
             this.trackBarTemperature.Name = "trackBarTemperature";
             this.trackBarTemperature.Size = new System.Drawing.Size(396, 45);
@@ -139,7 +139,7 @@
             this.buttonSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSend.Location = new System.Drawing.Point(143, 418);
-            this.buttonSend.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSend.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(127, 19);
             this.buttonSend.TabIndex = 10;
@@ -152,7 +152,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textAlerts.Location = new System.Drawing.Point(7, 450);
-            this.textAlerts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textAlerts.Margin = new System.Windows.Forms.Padding(2);
             this.textAlerts.Multiline = true;
             this.textAlerts.Name = "textAlerts";
             this.textAlerts.ReadOnly = true;
@@ -178,9 +178,9 @@
             this.Controls.Add(this.textConnectionString);
             this.Controls.Add(this.textDeviceName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
-            this.Text = "Device Simulator";
+            this.Text = "Building sensor simulator";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
             this.ResumeLayout(false);
