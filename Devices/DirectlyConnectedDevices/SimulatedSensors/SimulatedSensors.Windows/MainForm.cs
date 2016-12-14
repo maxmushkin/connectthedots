@@ -8,23 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ConnectTheDotsHelper;
+using Microsoft.Azure.Devices.Client;
 using SimulatedSensors;
 
 namespace SimulatedSensors.Windows
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        ConnectTheDots Device;
+        ConnectTheDots Device = null;
 
         private delegate void AppendAlert(string AlertText);
 
-        public Form1()
+        private string activeIoTHubConnectionString = "";
+
+        public MainForm()
         {
             InitializeComponent();
 
             // Initialize IoT Hub client
-            Device = new ConnectTheDots();
-            
+
             // Prepare UI elements
             buttonConnect.Enabled = false;
             buttonConnect.Click += ButtonConnect_Click; ;
@@ -32,9 +34,8 @@ namespace SimulatedSensors.Windows
             buttonSend.Enabled = false;
             buttonSend.Click += ButtonSend_Click; ;
 
-            textGatewayId.Text = Properties.Settings.Default.GatewayId;
-            textDeviceId.Text = Properties.Settings.Default.DeviceId;
-            textObjectTypeInstance.Text = Properties.Settings.Default.ObjectTypeInstance;
+            textDeviceName.TextChanged += TextDeviceName_TextChanged;
+            textDeviceName.Text = Properties.Settings.Default.DeviceId;
 
             textConnectionString.TextChanged += TextConnectionString_TextChanged;
             textConnectionString.Text = Properties.Settings.Default.ConnectionString;
@@ -66,40 +67,29 @@ namespace SimulatedSensors.Windows
         private void TrackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             labelTemperature.Text = "Value: " + trackBarTemperature.Value;
-            if (Device?.DeviceId != null)
-            {
-                Device.UpdateSensorData(Device.DeviceId, trackBarTemperature.Value);
-            }
+            Device.UpdateSensorData(Device.DeviceId, trackBarTemperature.Value);
         }
 
         private void TextConnectionString_TextChanged(object sender, EventArgs e)
         {
+            Device.ConnectionString = textConnectionString.Text;
             Properties.Settings.Default["ConnectionString"] = textConnectionString.Text;
             Properties.Settings.Default.Save();
-            buttonConnect.Enabled = CheckConfig(textConnectionString.Text);
+            buttonConnect.Enabled = CheckConfig(Device);
         }
 
-        private void textGatewayId_TextChanged(object sender, EventArgs e)
+        private void TextDeviceName_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default["GatewayId"] = textGatewayId.Text;
+            Device.DeviceId = textDeviceName.Text;
+            Properties.Settings.Default["DeviceId"] = textDeviceName.Text;
             Properties.Settings.Default.Save();
-        }
-        private void textDeviceId_TextChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default["DeviceId"] = textDeviceId.Text;
-            Properties.Settings.Default.Save();
-        }
-        private void textObjectTypeInstance_TextChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default["ObjectTypeInstance"] = textObjectTypeInstance.Text;
-            Properties.Settings.Default.Save();
+            buttonConnect.Enabled = CheckConfig(Device);
         }
 
-        private bool CheckConfig(string connectionString)
+        private bool CheckConfig(ConnectTheDots device)
         {
-            if(!string.IsNullOrEmpty(connectionString))
+            if(!string.IsNullOrEmpty(device.ConnectionString))
             {
-                Device.ConnectionString = connectionString;
                 return true;
             }
 
@@ -110,32 +100,19 @@ namespace SimulatedSensors.Windows
         {
             if (Device.SendTelemetryData)
             {
+
                 Device.SendTelemetryData = false;
-                textGatewayId.Enabled =
-                textDeviceId.Enabled =
-                textObjectTypeInstance.Enabled = true;
                 buttonSend.Text = "Press to send telemetry data";
             }
             else
             {
-                if (CheckConfig(textConnectionString.Text))
-                {
-                    Device.AddSensor(textGatewayId.Text, textDeviceId.Text, textObjectTypeInstance.Text, trackBarTemperature.Value);
-
-                    Device.SendTelemetryData = true;
-
-                    textGatewayId.Enabled =
-                    textDeviceId.Enabled =
-                    textObjectTypeInstance.Enabled = false;
-
-                    buttonSend.Text = "Sending telemetry data";
-                }
+                Device.SendTelemetryData = true;
+                buttonSend.Text = "Sending telemetry data";
             }
         }
 
         private void ButtonConnect_Click(object sender, EventArgs e)
         {
-            if(CheckConfig(textConnectionString.Text))
             {
                 if (Device.IsConnected)
                 {
@@ -143,6 +120,7 @@ namespace SimulatedSensors.Windows
                     if (Device.Disconnect())
                     {
                         buttonSend.Enabled = false;
+                        textDeviceName.Enabled = true;
                         textConnectionString.Enabled = true;
                         buttonConnect.Text = "Press to connect the dots";
                     }
@@ -152,11 +130,31 @@ namespace SimulatedSensors.Windows
                     if (Device.Connect())
                     {
                         buttonSend.Enabled = true;
+                        textDeviceName.Enabled = false;
+
                         textConnectionString.Enabled = false;
                         buttonConnect.Text = "Dots connected";
 
                     }
                 }
+            }
+        }
+
+        private void buttonConnect_Click_1(object sender, EventArgs e)
+        {
+            parseIoTHubConnectionString(textConnectionString.Text);
+        }
+
+        private void parseIoTHubConnectionString(string cs)
+        {
+            try
+            {
+                IotHubConnectionStringBuilder builder = IotHubConnectionStringBuilder.Create(cs);
+                activeIoTHubConnectionString = cs;
+            }
+            catch (Exception exception)
+            {
+                throw new ArgumentException("Invalid IoTHub connection string. " + exception.Message);
             }
         }
     }

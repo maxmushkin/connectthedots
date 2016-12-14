@@ -20,20 +20,21 @@ namespace ConnectTheDotsHelper
     {
         // Azure IoT Hub client
         private DeviceClient deviceClient;
-
+        
         // Collection of sensors
         public Dictionary<string, D2CMessage> Sensors { get; set; } = new Dictionary<string, D2CMessage>();
-        public void AddSensor(string deviceId, string connectionString)
+        public void AddSensor(string gatewayid, string deviceId, string objectType, double defaultValue = 0)
         {
-            ConnectionString = connectionString;
             Sensors.Clear();
 
-            Sensors.Add(deviceId, new D2CMessage
+            Sensors.Add(DeviceId, new D2CMessage
             {
                 guid = Guid,
                 deviceid = deviceId,
+                gatewayid = gatewayid,
+                objecttype = objectType,
                 timecreated = DateTime.UtcNow.ToString("o"),
-                value = 0
+                value = defaultValue
             });
         }
 
@@ -47,7 +48,7 @@ namespace ConnectTheDotsHelper
             set
             {
                 this._ConnectionString = value;
-                this.Guid = ExtractDeviceIdFromConnectionString(value);
+                this.DeviceId = this.Guid = ExtractDeviceIdFromConnectionString(value);
             }
         }
         public string Guid { get; set; }
@@ -56,12 +57,13 @@ namespace ConnectTheDotsHelper
         public int SendTelemetryFreq { get; set; } = 5000;
         public bool IsConnected { get; set; } = false;
 
-        public void UpdateSensorData(string SensorName, double value)
+        public void UpdateSensorData(string sensorName, double value)
         {
             foreach (var sensor in Sensors)
             {
                 sensor.Value.value = value;
             }
+            //Sensors[sensorName].value = value;
         }
 
         // Sending and receiving tasks
@@ -89,8 +91,7 @@ namespace ConnectTheDotsHelper
         // Trigger for notifying reception of new message from Connect The Dots dashboard
         protected virtual void OnReceivedMessage(ReceivedMessageEventArgs e)
         {
-            if (ReceivedMessage != null)
-                ReceivedMessage(this, e);
+            ReceivedMessage?.Invoke(this, e);
         }
 
         /// <summary>
@@ -187,7 +188,6 @@ namespace ConnectTheDotsHelper
                                 // Update the values that 
                                 sensor.Value.guid = this.Guid;
                                 sensor.Value.timecreated = DateTime.UtcNow.ToString("o");
-                                sensor.Value.deviceid = DeviceId;
                                 dataToSend[index++] = sensor.Value;
                             }
                             // Send message

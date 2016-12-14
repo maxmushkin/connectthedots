@@ -12,6 +12,9 @@ namespace ConnectTheDotsHelper
         public string guid;
 
         [DataMember]
+        public string gatewayid;
+
+        [DataMember]
         public string deviceid;
 
         [DataMember]

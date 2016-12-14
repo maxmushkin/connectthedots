@@ -46,5 +46,29 @@ namespace SimulatedSensors.Windows.Properties {
                 this["DeviceId"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DefaultGateway")]
+        public string GatewayId {
+            get {
+                return ((string)(this["GatewayId"]));
+            }
+            set {
+                this["GatewayId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ThermoSensor")]
+        public string ObjectTypeInstance {
+            get {
+                return ((string)(this["ObjectTypeInstance"]));
+            }
+            set {
+                this["ObjectTypeInstance"] = value;
+            }
+        }
     }
 }
