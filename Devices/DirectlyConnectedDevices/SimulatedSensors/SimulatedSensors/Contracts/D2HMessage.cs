@@ -20,7 +20,7 @@ namespace SimulatedSensors.Contracts
         [JsonProperty("Timestamp")]
         public string Timestamp;
 
-        [JsonProperty("Assert")]
+        [JsonProperty("Asset")]
         public Asset Asset;
     }
 }

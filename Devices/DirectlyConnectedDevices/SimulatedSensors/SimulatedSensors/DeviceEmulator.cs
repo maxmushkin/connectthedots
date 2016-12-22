@@ -86,8 +86,9 @@ namespace SimulatedSensors
                         try
                         {
                             var d2hMessage = new D2HMessage(asset);
+                            var messages = new D2HMessage[] {d2hMessage};
 
-                            var msg = new Message(Serialize(d2hMessage));
+                            var msg = new Message(Serialize(messages));
                             if (_deviceGateway.Connected)
                             {
                                 EnqueMessage(msg);
