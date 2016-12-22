@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace ConnectTheDotsHelper
+namespace SimulatedSensors.Contracts
 {
     /// <summary>
     /// Data contract defining Connect The Dots Cloud to Device message format

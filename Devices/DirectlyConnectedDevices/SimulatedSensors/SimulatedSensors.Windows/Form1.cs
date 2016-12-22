@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ConnectTheDotsHelper;
 using SimulatedSensors;
+using SimulatedSensors.Contracts;
 
 namespace SimulatedSensors.Windows
 {
     public partial class Form1 : Form
     {
-        ConnectTheDots Device;
+        DeviceEmulator Device;
 
         private delegate void AppendAlert(string AlertText);
 
@@ -23,7 +24,7 @@ namespace SimulatedSensors.Windows
             InitializeComponent();
 
             // Initialize IoT Hub client
-            Device = new ConnectTheDots();
+            Device = new DeviceEmulator();
             
             // Prepare UI elements
             buttonConnect.Enabled = false;
@@ -47,12 +48,12 @@ namespace SimulatedSensors.Windows
             buttonConnect.Focus();
 
             // Attach receive callback for alerts
-            Device.ReceivedMessage += Device_ReceivedMessage;
+            Device.ReceivedMessageEventHandler += Device_ReceivedMessage;
         }
 
         private void Device_ReceivedMessage(object sender, EventArgs e)
         {
-            ConnectTheDotsHelper.C2DMessage message = ((ConnectTheDotsHelper.ConnectTheDots.ReceivedMessageEventArgs)e).Message;
+            C2DMessage message = ((ReceivedMessageEventArgs)e).Message;
             var textToDisplay = message.timecreated + " - Alert received:" + message.message + ": " + message.value + " " + message.unitofmeasure + "\r\n";
             this.BeginInvoke(new AppendAlert(Target), textToDisplay);
         }
@@ -66,9 +67,9 @@ namespace SimulatedSensors.Windows
         private void TrackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             labelTemperature.Text = "Value: " + trackBarTemperature.Value;
-            if (Device?.DeviceId != null)
+            if (Device.Connected)
             {
-                Device.UpdateSensorData(Device.DeviceId, trackBarTemperature.Value);
+                Device.UpdateAsset(new Asset {DeviceId = textDeviceId.Text, GatewayId = textGatewayId.Text, ObjectTypeInstance = textObjectTypeInstance.Text, Value = trackBarTemperature.Value});
             }
         }
 
@@ -99,7 +100,7 @@ namespace SimulatedSensors.Windows
         {
             if(!string.IsNullOrEmpty(connectionString))
             {
-                Device.ConnectionString = connectionString;
+                // ToDo: Add validation here
                 return true;
             }
 
@@ -108,9 +109,9 @@ namespace SimulatedSensors.Windows
 
         private void ButtonSend_Click(object sender, EventArgs e)
         {
-            if (Device.SendTelemetryData)
+            if (Device.SendingData)
             {
-                Device.SendTelemetryData = false;
+                Device.Pause();
                 textGatewayId.Enabled =
                 textDeviceId.Enabled =
                 textObjectTypeInstance.Enabled = true;
@@ -120,9 +121,8 @@ namespace SimulatedSensors.Windows
             {
                 if (CheckConfig(textConnectionString.Text))
                 {
-                    Device.AddSensor(textGatewayId.Text, textDeviceId.Text, textObjectTypeInstance.Text, trackBarTemperature.Value);
-
-                    Device.SendTelemetryData = true;
+                    if (Device.Connected)
+                        Device.Resume();
 
                     textGatewayId.Enabled =
                     textDeviceId.Enabled =
@@ -137,9 +137,8 @@ namespace SimulatedSensors.Windows
         {
             if(CheckConfig(textConnectionString.Text))
             {
-                if (Device.IsConnected)
+                if (Device.Connected)
                 {
-                    Device.SendTelemetryData = false;
                     if (Device.Disconnect())
                     {
                         buttonSend.Enabled = false;
@@ -149,7 +148,7 @@ namespace SimulatedSensors.Windows
                 }
                 else
                 {
-                    if (Device.Connect())
+                    if (Device.Connect(textConnectionString.Text))
                     {
                         buttonSend.Enabled = true;
                         textConnectionString.Enabled = false;

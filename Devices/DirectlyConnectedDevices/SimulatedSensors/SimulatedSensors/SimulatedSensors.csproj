@@ -34,8 +34,15 @@
     <Compile Include="..\..\Common\csharp\ConnectTheDotsHelper.cs">
       <Link>ConnectTheDotsHelper.cs</Link>
     </Compile>
-    <Compile Include="C2DMessage.cs" />
+    <Compile Include="Contracts\C2DMessage.cs" />
+    <Compile Include="Contracts\IDeviceEmulator.cs" />
+    <Compile Include="Contracts\IDeviceGateway.cs" />
+    <Compile Include="Contracts\ReceivedMessageEventArgs.cs" />
     <Compile Include="D2CMessage.cs" />
+    <Compile Include="DeviceEmulator.cs" />
+    <Compile Include="DeviceGateway.cs" />
+    <Compile Include="Contracts\Asset.cs" />
+    <Compile Include="Contracts\D2HMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

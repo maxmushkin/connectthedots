@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ConnectTheDotsHelper;
 using Microsoft.Azure.Devices.Client;
 using SimulatedSensors;
+using SimulatedSensors.Contracts;
 
 namespace SimulatedSensors.Windows
 {
@@ -53,7 +54,7 @@ namespace SimulatedSensors.Windows
 
         private void Device_ReceivedMessage(object sender, EventArgs e)
         {
-            ConnectTheDotsHelper.C2DMessage message = ((ConnectTheDotsHelper.ConnectTheDots.ReceivedMessageEventArgs)e).Message;
+            C2DMessage message = ((ReceivedMessageEventArgs)e).Message;
             var textToDisplay = message.timecreated + " - Alert received:" + message.message + ": " + message.value + " " + message.unitofmeasure + "\r\n";
             this.BeginInvoke(new AppendAlert(Target), textToDisplay);
         }
