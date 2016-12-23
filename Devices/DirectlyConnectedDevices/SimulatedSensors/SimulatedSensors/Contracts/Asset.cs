@@ -10,7 +10,7 @@ namespace SimulatedSensors.Contracts
         [JsonProperty("DeviceId")]
         public string DeviceId;
 
-        [JsonProperty("ObjectTypeInstance")]
+        [JsonProperty("ObjectType_Instance")]
         public string ObjectTypeInstance;
 
         [JsonProperty("Value")]
