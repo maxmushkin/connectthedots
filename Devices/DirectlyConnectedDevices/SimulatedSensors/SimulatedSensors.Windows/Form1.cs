@@ -15,21 +15,21 @@ namespace SimulatedSensors.Windows
 {
     public partial class Form1 : Form
     {
-        DeviceEmulator Device;
+        DeviceEmulator DeviceInstance;
+        Dictionary<string, DeviceEntity> Devices = new Dictionary<string, DeviceEntity>();
+        private DeviceEntity SelectedDevice;
 
         private delegate void AppendAlert(string AlertText);
+
+        private string ConnectionString => SelectedDevice?.ConnectionString;
 
         public Form1()
         {
             InitializeComponent();
 
             // Initialize IoT Hub client
-            Device = new DeviceEmulator();
+            DeviceInstance = new DeviceEmulator();
             
-            // Prepare UI elements
-            buttonConnect.Enabled = false;
-            buttonConnect.Click += ButtonConnect_Click; ;
-
             buttonSend.Enabled = false;
             buttonSend.Click += ButtonSend_Click; ;
 
@@ -43,15 +43,14 @@ namespace SimulatedSensors.Windows
             trackBarTemperature.ValueChanged += TrackBarTemperature_ValueChanged;
 
             TrackBarTemperature_ValueChanged(null, null);
-
-            // Set focus to the connect button
-            buttonConnect.Focus();
-
+           
             // Attach receive callback for alerts
-            Device.ReceivedMessageEventHandler += Device_ReceivedMessage;
+            DeviceInstance.ReceivedMessageEventHandler += DeviceInstanceReceivedMessage;
+            //if (CheckConfig(textConnectionString.Text))
+            //    Task.Run(() => this.GetDevices(textConnectionString.Text)).Wait();
         }
 
-        private void Device_ReceivedMessage(object sender, EventArgs e)
+        private void DeviceInstanceReceivedMessage(object sender, EventArgs e)
         {
             C2DMessage message = ((ReceivedMessageEventArgs)e).Message;
             var textToDisplay = message.timecreated + " - Alert received:" + message.message + ": " + message.value + " " + message.unitofmeasure + "\r\n";
@@ -67,9 +66,9 @@ namespace SimulatedSensors.Windows
         private void TrackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             labelTemperature.Text = "Value: " + trackBarTemperature.Value;
-            if (Device.Connected)
+            if (DeviceInstance.Connected)
             {
-                Device.UpdateAsset(new Asset {DeviceId = textDeviceId.Text, GatewayId = textGatewayId.Text, ObjectTypeInstance = textObjectTypeInstance.Text, Value = trackBarTemperature.Value});
+                DeviceInstance.UpdateAsset(new Asset {DeviceId = textDeviceId.Text, GatewayId = textGatewayId.Text, ObjectTypeInstance = textObjectTypeInstance.Text, Value = trackBarTemperature.Value});
             }
         }
 
@@ -77,7 +76,6 @@ namespace SimulatedSensors.Windows
         {
             Properties.Settings.Default["ConnectionString"] = textConnectionString.Text;
             Properties.Settings.Default.Save();
-            buttonConnect.Enabled = CheckConfig(textConnectionString.Text);
         }
 
         private void textGatewayId_TextChanged(object sender, EventArgs e)
@@ -109,9 +107,9 @@ namespace SimulatedSensors.Windows
 
         private void ButtonSend_Click(object sender, EventArgs e)
         {
-            if (Device.SendingData)
+            if (DeviceInstance.SendingData)
             {
-                Device.Pause();
+                DeviceInstance.Pause();
                 textGatewayId.Enabled =
                 textDeviceId.Enabled =
                 textObjectTypeInstance.Enabled = true;
@@ -121,8 +119,8 @@ namespace SimulatedSensors.Windows
             {
                 if (CheckConfig(textConnectionString.Text))
                 {
-                    if (Device.Connected)
-                        Device.Resume();
+                    if (DeviceInstance.Connected)
+                        DeviceInstance.Resume();
 
                     textGatewayId.Enabled =
                     textDeviceId.Enabled =
@@ -133,30 +131,57 @@ namespace SimulatedSensors.Windows
             }
         }
 
-        private void ButtonConnect_Click(object sender, EventArgs e)
+        private async void btnGetDevices_Click(object sender, EventArgs e)
         {
-            if(CheckConfig(textConnectionString.Text))
-            {
-                if (Device.Connected)
-                {
-                    if (Device.Disconnect())
-                    {
-                        buttonSend.Enabled = false;
-                        textConnectionString.Enabled = true;
-                        buttonConnect.Text = "Press to connect the dots";
-                    }
-                }
-                else
-                {
-                    if (Device.Connect(textConnectionString.Text))
-                    {
-                        buttonSend.Enabled = true;
-                        textConnectionString.Enabled = false;
-                        buttonConnect.Text = "Dots connected";
+            await GetDevices(textConnectionString.Text);
+        }
 
-                    }
+        public async Task GetDevices(string connectionString)
+        {
+            try
+            {
+                var devicesProcessor = new DevicesProcessor(connectionString, 1000, string.Empty);
+                var devices = await devicesProcessor.GetDevices();
+
+                Devices.Clear();
+
+                foreach (var device in devices)
+                {
+                    Devices.Add(device.Id, device);
+                }
+                cmbDevices.DataSource = Devices.Keys.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Invalid IoTHub connection string. " + ex.Message);
+            }
+        }
+
+        private void cmbDevices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Devices.ContainsKey(cmbDevices.SelectedValue.ToString()))
+                Connect(Devices[cmbDevices.SelectedValue.ToString()].ConnectionString);
+        }
+
+        private void Connect(string deviceConnectionString)
+        {
+            if (DeviceInstance.Connected)
+            {
+                if (DeviceInstance.Disconnect())
+                {
+                    buttonSend.Enabled = false;
+                    textConnectionString.Enabled = true;
+                }
+            }
+            else
+            {
+                if (DeviceInstance.Connect(deviceConnectionString))
+                {
+                    buttonSend.Enabled = true;
+                    textConnectionString.Enabled = false;
                 }
             }
         }
+
     }
 }

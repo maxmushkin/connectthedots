@@ -14,7 +14,7 @@ namespace SimulatedSensors
         public bool SendingData { get; private set; }
         private Dictionary<string, Asset> Assets = new Dictionary<string, Asset>();
         private DeviceGateway _deviceGateway = new DeviceGateway();
-        public int SendTelemetryFreq { get; set; } = 5000;
+        public int SendTelemetryFreq { get; set; } = 500;
         public bool Connected => _deviceGateway.Connected;
 
         // Event Handler for notifying the sent message state to the IoT Hub
@@ -22,7 +22,7 @@ namespace SimulatedSensors
 
         // Event Handler for notifying the reception of a new message from IoT Hub
         public event EventHandler ReceivedMessageEventHandler;
-        
+
         public bool Pause()
         {
             return SendingData = false;
@@ -78,6 +78,7 @@ namespace SimulatedSensors
 
         private async void SendMessages()
         {
+            Random rnd = new Random(1234432);
             while (Connected)
             {
                 if (SendingData)
@@ -86,7 +87,8 @@ namespace SimulatedSensors
                         try
                         {
                             var d2hMessage = new D2HMessage(asset);
-                            var messages = new D2HMessage[] {d2hMessage};
+                            d2hMessage.Asset.Value = d2hMessage.Asset.Value + rnd.Next(-10, 11) / 10.0;
+                            var messages = new D2HMessage[] { d2hMessage };
 
                             var msg = new Message(Serialize(messages));
                             if (_deviceGateway.Connected)
