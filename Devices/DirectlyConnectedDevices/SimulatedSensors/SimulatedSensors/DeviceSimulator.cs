@@ -87,8 +87,8 @@ namespace SimulatedSensors
                         try
                         {
                             var d2hMessage = new D2HMessage(asset);
-                            if (d2hMessage.Asset.Value > 30 || d2hMessage.Asset.Value < 16)
-                                d2hMessage.Asset.Value = 22;
+                            //if (d2hMessage.Asset.Value > 30 || d2hMessage.Asset.Value < 16)
+                            //    d2hMessage.Asset.Value = 22;
                             d2hMessage.Asset.Value = d2hMessage.Asset.Value + rnd.Next(-10, 11) / 10.0;
                             var messages = new D2HMessage[] { d2hMessage };
 
