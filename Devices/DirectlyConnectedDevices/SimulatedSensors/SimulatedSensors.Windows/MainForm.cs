@@ -39,7 +39,7 @@ namespace SimulatedSensors.Windows
             textDeviceName.Text = Properties.Settings.Default.DeviceId;
 
             textConnectionString.TextChanged += TextConnectionString_TextChanged;
-            textConnectionString.Text = Properties.Settings.Default.ConnectionString;
+            textConnectionString.Text = Properties.Settings.Default.IoTHubConnectionString;
 
             trackBarTemperature.ValueChanged += TrackBarTemperature_ValueChanged;
 

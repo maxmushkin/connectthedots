@@ -9,7 +9,7 @@ using SimulatedSensors.Contracts;
 
 namespace SimulatedSensors
 {
-    public class DeviceEmulator : IDeviceGateway, IDeviceEmulator
+    public class DeviceSimulator : IDeviceEmulator
     {
         public bool SendingData { get; private set; }
         private Dictionary<string, Asset> Assets = new Dictionary<string, Asset>();
@@ -87,6 +87,8 @@ namespace SimulatedSensors
                         try
                         {
                             var d2hMessage = new D2HMessage(asset);
+                            if (d2hMessage.Asset.Value > 30 || d2hMessage.Asset.Value < 16)
+                                d2hMessage.Asset.Value = 22;
                             d2hMessage.Asset.Value = d2hMessage.Asset.Value + rnd.Next(-10, 11) / 10.0;
                             var messages = new D2HMessage[] { d2hMessage };
 
@@ -112,7 +114,7 @@ namespace SimulatedSensors
                         }
                         catch (System.Exception e)
                         {
-                            Debug.WriteLine("Exception while sending device telemetry data :\n" + e.Message.ToString());
+                            Debug.WriteLine("Exception while sending device telemetry data :\n" + e.Message.ToString(), "DE");
                         }
                     }
                 await Task.Delay(SendTelemetryFreq);

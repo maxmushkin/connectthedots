@@ -33,11 +33,10 @@
     <Compile Include="Contracts\C2DMessage.cs" />
     <Compile Include="Contracts\DeviceEntity.cs" />
     <Compile Include="Contracts\IDeviceEmulator.cs" />
-    <Compile Include="Contracts\IDeviceGateway.cs" />
     <Compile Include="HubGateway.cs" />
     <Compile Include="Contracts\ReceivedMessageEventArgs.cs" />
     <Compile Include="D2CMessage.cs" />
-    <Compile Include="DeviceEmulator.cs" />
+    <Compile Include="DeviceSimulator.cs" />
     <Compile Include="DeviceGateway.cs" />
     <Compile Include="Contracts\Asset.cs" />
     <Compile Include="Contracts\D2HMessage.cs" />

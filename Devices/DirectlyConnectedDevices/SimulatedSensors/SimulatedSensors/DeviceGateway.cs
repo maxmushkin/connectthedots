@@ -11,7 +11,7 @@ using SimulatedSensors.Contracts;
 
 namespace SimulatedSensors
 {
-    public class DeviceGateway : IDeviceGateway
+    public class DeviceGateway
     {
         public int SendTelemetryFreq { get; set; } = 200;
 
@@ -88,7 +88,7 @@ namespace SimulatedSensors
                         if (ct.IsCancellationRequested)
                         {
                             // Cancel was called
-                            Debug.WriteLine("Receiving task canceled");
+                            Debug.WriteLine("Receiving task canceled", "DE");
                             break;
                         }
                     }
@@ -96,7 +96,7 @@ namespace SimulatedSensors
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Error while trying to connect to IoT Hub: " + e.Message);
+                Debug.WriteLine("Error while trying to connect to IoT Hub: " + e.Message, "DE");
                 _deviceClient = null;
                 return false;
             }

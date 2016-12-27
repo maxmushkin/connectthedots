@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textGatewayId = new System.Windows.Forms.TextBox();
             this.textConnectionString = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelDeviceName = new System.Windows.Forms.Label();
@@ -39,25 +38,16 @@
             this.textAlerts = new System.Windows.Forms.TextBox();
             this.labelGateway = new System.Windows.Forms.Label();
             this.lblDevice = new System.Windows.Forms.Label();
-            this.textDeviceId = new System.Windows.Forms.TextBox();
             this.lblObjectTypeInstance = new System.Windows.Forms.Label();
-            this.textObjectTypeInstance = new System.Windows.Forms.TextBox();
             this.btnGetDevices = new System.Windows.Forms.Button();
             this.cmbDevices = new System.Windows.Forms.ComboBox();
+            this.cmbGatewayId = new System.Windows.Forms.ComboBox();
+            this.cmbDeviceId = new System.Windows.Forms.ComboBox();
+            this.cmbObjectTypeInstance = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             this.SuspendLayout();
-            // 
-            // textGatewayId
-            // 
-            this.textGatewayId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textGatewayId.Location = new System.Drawing.Point(11, 351);
-            this.textGatewayId.Margin = new System.Windows.Forms.Padding(2);
-            this.textGatewayId.Name = "textGatewayId";
-            this.textGatewayId.Size = new System.Drawing.Size(396, 20);
-            this.textGatewayId.TabIndex = 0;
-            this.textGatewayId.TextChanged += new System.EventHandler(this.textGatewayId_TextChanged);
             // 
             // textConnectionString
             // 
@@ -159,7 +149,7 @@
             // 
             this.labelGateway.AutoSize = true;
             this.labelGateway.ForeColor = System.Drawing.Color.White;
-            this.labelGateway.Location = new System.Drawing.Point(11, 333);
+            this.labelGateway.Location = new System.Drawing.Point(12, 324);
             this.labelGateway.Name = "labelGateway";
             this.labelGateway.Size = new System.Drawing.Size(61, 13);
             this.labelGateway.TabIndex = 12;
@@ -169,22 +159,11 @@
             // 
             this.lblDevice.AutoSize = true;
             this.lblDevice.ForeColor = System.Drawing.Color.White;
-            this.lblDevice.Location = new System.Drawing.Point(11, 383);
+            this.lblDevice.Location = new System.Drawing.Point(11, 376);
             this.lblDevice.Name = "lblDevice";
             this.lblDevice.Size = new System.Drawing.Size(94, 13);
             this.lblDevice.TabIndex = 14;
             this.lblDevice.Text = "DeviceInstance Id";
-            // 
-            // textDeviceId
-            // 
-            this.textDeviceId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textDeviceId.Location = new System.Drawing.Point(11, 401);
-            this.textDeviceId.Margin = new System.Windows.Forms.Padding(2);
-            this.textDeviceId.Name = "textDeviceId";
-            this.textDeviceId.Size = new System.Drawing.Size(396, 20);
-            this.textDeviceId.TabIndex = 13;
-            this.textDeviceId.TextChanged += new System.EventHandler(this.textDeviceId_TextChanged);
             // 
             // lblObjectTypeInstance
             // 
@@ -195,17 +174,6 @@
             this.lblObjectTypeInstance.Size = new System.Drawing.Size(106, 13);
             this.lblObjectTypeInstance.TabIndex = 16;
             this.lblObjectTypeInstance.Text = "ObjectType Instance";
-            // 
-            // textObjectTypeInstance
-            // 
-            this.textObjectTypeInstance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textObjectTypeInstance.Location = new System.Drawing.Point(11, 450);
-            this.textObjectTypeInstance.Margin = new System.Windows.Forms.Padding(2);
-            this.textObjectTypeInstance.Name = "textObjectTypeInstance";
-            this.textObjectTypeInstance.Size = new System.Drawing.Size(396, 20);
-            this.textObjectTypeInstance.TabIndex = 15;
-            this.textObjectTypeInstance.TextChanged += new System.EventHandler(this.textObjectTypeInstance_TextChanged);
             // 
             // btnGetDevices
             // 
@@ -226,6 +194,42 @@
             this.cmbDevices.TabIndex = 18;
             this.cmbDevices.SelectedIndexChanged += new System.EventHandler(this.cmbDevices_SelectedIndexChanged);
             // 
+            // cmbGatewayId
+            // 
+            this.cmbGatewayId.FormattingEnabled = true;
+            this.cmbGatewayId.Location = new System.Drawing.Point(11, 340);
+            this.cmbGatewayId.Name = "cmbGatewayId";
+            this.cmbGatewayId.Size = new System.Drawing.Size(396, 21);
+            this.cmbGatewayId.TabIndex = 19;
+            this.cmbGatewayId.SelectedIndexChanged += new System.EventHandler(this.cmbGatewayId_SelectedIndexChanged);
+            // 
+            // cmbDeviceId
+            // 
+            this.cmbDeviceId.FormattingEnabled = true;
+            this.cmbDeviceId.Location = new System.Drawing.Point(11, 393);
+            this.cmbDeviceId.Name = "cmbDeviceId";
+            this.cmbDeviceId.Size = new System.Drawing.Size(396, 21);
+            this.cmbDeviceId.TabIndex = 20;
+            this.cmbDeviceId.SelectedIndexChanged += new System.EventHandler(this.cmbDeviceId_SelectedIndexChanged);
+            // 
+            // cmbObjectTypeInstance
+            // 
+            this.cmbObjectTypeInstance.FormattingEnabled = true;
+            this.cmbObjectTypeInstance.Location = new System.Drawing.Point(11, 449);
+            this.cmbObjectTypeInstance.Name = "cmbObjectTypeInstance";
+            this.cmbObjectTypeInstance.Size = new System.Drawing.Size(396, 21);
+            this.cmbObjectTypeInstance.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(11, 245);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(121, 13);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Device Id (IoTHub term)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -233,12 +237,14 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(410, 713);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cmbObjectTypeInstance);
+            this.Controls.Add(this.cmbDeviceId);
+            this.Controls.Add(this.cmbGatewayId);
             this.Controls.Add(this.cmbDevices);
             this.Controls.Add(this.btnGetDevices);
             this.Controls.Add(this.lblObjectTypeInstance);
-            this.Controls.Add(this.textObjectTypeInstance);
             this.Controls.Add(this.lblDevice);
-            this.Controls.Add(this.textDeviceId);
             this.Controls.Add(this.labelGateway);
             this.Controls.Add(this.textAlerts);
             this.Controls.Add(this.buttonSend);
@@ -248,7 +254,6 @@
             this.Controls.Add(this.labelDeviceName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textConnectionString);
-            this.Controls.Add(this.textGatewayId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -261,8 +266,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textGatewayId;
         private System.Windows.Forms.TextBox textConnectionString;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelDeviceName;
@@ -273,11 +276,13 @@
         private System.Windows.Forms.TextBox textAlerts;
         private System.Windows.Forms.Label labelGateway;
         private System.Windows.Forms.Label lblDevice;
-        private System.Windows.Forms.TextBox textDeviceId;
         private System.Windows.Forms.Label lblObjectTypeInstance;
-        private System.Windows.Forms.TextBox textObjectTypeInstance;
         private System.Windows.Forms.Button btnGetDevices;
         private System.Windows.Forms.ComboBox cmbDevices;
+        private System.Windows.Forms.ComboBox cmbGatewayId;
+        private System.Windows.Forms.ComboBox cmbDeviceId;
+        private System.Windows.Forms.ComboBox cmbObjectTypeInstance;
+        private System.Windows.Forms.Label label1;
     }
 }
 

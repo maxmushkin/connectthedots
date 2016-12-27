@@ -25,13 +25,13 @@ namespace SimulatedSensors.Windows.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Device Connection String")]
-        public string ConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("IoTHub Connection String")]
+        public string IoTHubConnectionString {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((string)(this["IoTHubConnectionString"]));
             }
             set {
-                this["ConnectionString"] = value;
+                this["IoTHubConnectionString"] = value;
             }
         }
         
