@@ -100,7 +100,7 @@ namespace SimulatedSensors
                             }
                             
                             var messages = new D2HMessage[] { d2hMessage };
-
+                            var demoMessage = JsonConvert.SerializeObject(messages);
                             var msg = new Message(Serialize(messages));
 
                             d2hMessage.Asset.Value = d2hMessage.Asset.Value - variation;
@@ -113,11 +113,8 @@ namespace SimulatedSensors
                                 SentMessageEventHandler?.Invoke(this, new ReceivedMessageEventArgs(
                                     new C2DMessage()
                                     {
-                                        message = logmsg,
-                                        value = d2hMessage.Asset.Value,
-                                        alerttype = "sent",
-                                        timecreated = d2hMessage.Timestamp.Substring(0, 19),
-                                        unitofmeasure = d2hMessage.Asset.ObjectTypeInstance
+                                        message = demoMessage,
+                                        alerttype = "sent"
                                     }));
                                 SentMessagesCount++;
                                 Debug.WriteLine(logmsg);
@@ -128,6 +125,12 @@ namespace SimulatedSensors
                         catch (System.Exception e)
                         {
                             Debug.WriteLine("Exception while sending device telemetry data :\n" + e.Message.ToString(), "DE");
+                            SentMessageEventHandler?.Invoke(this, new ReceivedMessageEventArgs(
+                                   new C2DMessage()
+                                   {
+                                       message = "Exception while sending device telemetry data :\n" + e.Message.ToString(),
+                                       alerttype = "Error"
+                                   }));
                         }
                     }
                 await Task.Delay(SendTelemetryFreq);
@@ -141,7 +144,6 @@ namespace SimulatedSensors
         {
             string json = JsonConvert.SerializeObject(obj);
             return Encoding.UTF8.GetBytes(json);
-
         }
     }
 }

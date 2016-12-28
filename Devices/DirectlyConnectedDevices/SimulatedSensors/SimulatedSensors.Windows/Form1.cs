@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Configuration;
 
 using Dapper;
+using Newtonsoft.Json;
 using SimulatedSensors;
 using SimulatedSensors.Contracts;
 
@@ -25,6 +26,8 @@ namespace SimulatedSensors.Windows
         private List<BACmap> RefData = new List<BACmap>();
 
         private delegate void AppendAlert(string AlertText);
+
+        private int TickCount = 0;
 
         private string ConnectionString => SelectedDevice?.ConnectionString;
 
@@ -56,6 +59,19 @@ namespace SimulatedSensors.Windows
            
             // Attach receive callback for alerts
             DeviceInstance.ReceivedMessageEventHandler += DeviceInstanceReceivedMessage;
+            DeviceInstance.SentMessageEventHandler += DeviceInstance_SentMessageEventHandler;
+        }
+
+        private void DeviceInstance_SentMessageEventHandler(object sender, EventArgs e)
+        {
+            C2DMessage message = ((ReceivedMessageEventArgs) e).Message;
+            if (TickCount % 10 == 0 || message.alerttype.ToLower() == "error")
+            {
+                TickCount = 0;
+                this.BeginInvoke(new AppendAlert(Target), message.alerttype + " - " + message.message);
+            }
+
+            TickCount++;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -75,6 +91,9 @@ namespace SimulatedSensors.Windows
 
         private void Target(string text)
         {
+            if(textAlerts.Text.Length > 4096)
+                textAlerts.Clear();
+
             textAlerts.AppendText(text + "\r\n");
         }
 
@@ -250,6 +269,24 @@ namespace SimulatedSensors.Windows
             if (DeviceInstance.Connected && DeviceInstance.SendingData)
             {
                 lblSentCount.Text = "(" + DeviceInstance.SentMessagesCount + "/" + DeviceInstance.CreatedMessagesCount + ")";
+                TickCount++;
+
+                //if (TickCount%5 == 0)
+                //{
+                //    var asset = new Asset
+                //    {
+                //        DeviceId = cmbDeviceId.Text,
+                //        GatewayId = cmbGatewayId.Text,
+                //        ObjectTypeInstance = cmbObjectTypeInstance.Text,
+                //        Value = trackBarTemperature.Value,
+                //        Variation = checkBoxVariation.Checked
+                //    };
+
+                //    var d2hMessage = new D2HMessage(asset);
+                //    var messages = new D2HMessage[] { d2hMessage };
+                //    textAlerts.Text = JsonConvert.SerializeObject(messages);
+                //    TickCount = 0;
+                //}
             }
         }
     }
