@@ -46,7 +46,6 @@ namespace SimulatedSensors.Windows
             DeviceInstance = new DeviceSimulator();
             
             buttonSend.Enabled = false;
-            buttonSend.Click += ButtonSend_Click; ;
             
             textConnectionString.TextChanged += TextConnectionString_TextChanged;
             textConnectionString.Text = Properties.Settings.Default.IoTHubConnectionString;
@@ -57,9 +56,14 @@ namespace SimulatedSensors.Windows
            
             // Attach receive callback for alerts
             DeviceInstance.ReceivedMessageEventHandler += DeviceInstanceReceivedMessage;
-            
-            //if (CheckConfig(textConnectionString.Text))
-            //    Task.Run(() => this.GetDevices(textConnectionString.Text)).Wait();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Timer timer = new System.Windows.Forms.Timer();
+            timer.Interval = (1000);
+            timer.Tick += new EventHandler(timer1_Tick);
+            timer.Start();
         }
 
         private void DeviceInstanceReceivedMessage(object sender, EventArgs e)
@@ -77,9 +81,21 @@ namespace SimulatedSensors.Windows
         private void TrackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             labelTemperature.Text = "Value: " + trackBarTemperature.Value;
+            UpdateAsset();
+        }
+
+        private void UpdateAsset()
+        {
             if (DeviceInstance.Connected)
             {
-                DeviceInstance.UpdateAsset(new Asset {DeviceId = cmbDeviceId.Text, GatewayId = cmbGatewayId.Text, ObjectTypeInstance = cmbObjectTypeInstance.Text, Value = trackBarTemperature.Value});
+                DeviceInstance.UpdateAsset(new Asset
+                {
+                    DeviceId = cmbDeviceId.Text,
+                    GatewayId = cmbGatewayId.Text,
+                    ObjectTypeInstance = cmbObjectTypeInstance.Text,
+                    Value = trackBarTemperature.Value,
+                    Variation = checkBoxVariation.Checked
+                });
             }
         }
 
@@ -107,7 +123,8 @@ namespace SimulatedSensors.Windows
                 DeviceInstance.Pause();
                 cmbGatewayId.Enabled =
                 cmbDeviceId.Enabled =
-                cmbObjectTypeInstance.Enabled = true;
+                cmbObjectTypeInstance.Enabled =
+                checkBoxVariation.Enabled = true;
                 buttonSend.Text = "Press to send telemetry data";
             }
             else
@@ -117,9 +134,12 @@ namespace SimulatedSensors.Windows
                     if (DeviceInstance.Connected)
                         DeviceInstance.Resume();
 
+                    UpdateAsset();
+
                     cmbGatewayId.Enabled =
                     cmbDeviceId.Enabled =
-                    cmbObjectTypeInstance.Enabled = false;
+                    cmbObjectTypeInstance.Enabled =
+                    checkBoxVariation.Enabled = false;
 
                     buttonSend.Text = "Sending telemetry data";
                 }
@@ -175,7 +195,7 @@ namespace SimulatedSensors.Windows
                     buttonSend.Enabled = false;
                 }
             }
-
+           
             if (DeviceInstance.Connect(deviceConnectionString))
             {
                 buttonSend.Enabled = true;
@@ -225,14 +245,12 @@ namespace SimulatedSensors.Windows
             }
         }
 
-        private void labelGateway_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
+            if (DeviceInstance.Connected && DeviceInstance.SendingData)
+            {
+                lblSentCount.Text = "(" + DeviceInstance.SentMessagesCount + "/" + DeviceInstance.CreatedMessagesCount + ")";
+            }
         }
     }
 }

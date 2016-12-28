@@ -7,6 +7,8 @@ namespace SimulatedSensors.Contracts
     {
         public string GatewayId;
 
+        public bool Variation;
+
         [JsonProperty("DeviceId")]
         public string DeviceId;
 

@@ -22,6 +22,10 @@ namespace SimulatedSensors
 
         // Event Handler for notifying the reception of a new message from IoT Hub
         public event EventHandler ReceivedMessageEventHandler;
+        Random rnd = new Random();
+
+        public int SentMessagesCount { get; private set; }
+        public int CreatedMessagesCount { get; private set; }
 
         public bool Pause()
         {
@@ -63,6 +67,7 @@ namespace SimulatedSensors
         {
             if (_deviceGateway.Connect(connectionString))
                 SendMessages();
+            CreatedMessagesCount = SentMessagesCount = 0;
             return Connected;
         }
 
@@ -78,7 +83,6 @@ namespace SimulatedSensors
 
         private async void SendMessages()
         {
-            Random rnd = new Random(1234432);
             while (Connected)
             {
                 if (SendingData)
@@ -86,13 +90,21 @@ namespace SimulatedSensors
                     {
                         try
                         {
+                            CreatedMessagesCount++;
                             var d2hMessage = new D2HMessage(asset);
-                            //if (d2hMessage.Asset.Value > 30 || d2hMessage.Asset.Value < 16)
-                            //    d2hMessage.Asset.Value = 22;
-                            d2hMessage.Asset.Value = d2hMessage.Asset.Value + rnd.Next(-10, 11) / 10.0;
+                            double variation = 0.0;
+                            if (d2hMessage.Asset.Variation)
+                            {
+                                variation = rnd.Next(-10, 11)/10.0;
+                                d2hMessage.Asset.Value = d2hMessage.Asset.Value + variation;
+                            }
+                            
                             var messages = new D2HMessage[] { d2hMessage };
 
                             var msg = new Message(Serialize(messages));
+
+                            d2hMessage.Asset.Value = d2hMessage.Asset.Value - variation;
+
                             if (_deviceGateway.Connected)
                             {
                                 EnqueMessage(msg);
@@ -107,6 +119,7 @@ namespace SimulatedSensors
                                         timecreated = d2hMessage.Timestamp.Substring(0, 19),
                                         unitofmeasure = d2hMessage.Asset.ObjectTypeInstance
                                     }));
+                                SentMessagesCount++;
                                 Debug.WriteLine(logmsg);
                             }
                             else Debug.WriteLine("Connection To IoT Hub is not established. Cannot send message now");
