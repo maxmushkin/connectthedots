@@ -224,5 +224,15 @@ namespace SimulatedSensors.Windows
                 cmbObjectTypeInstance.DataSource = oti;
             }
         }
+
+        private void labelGateway_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

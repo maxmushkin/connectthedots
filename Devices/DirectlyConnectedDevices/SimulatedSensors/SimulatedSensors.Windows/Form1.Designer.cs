@@ -45,30 +45,30 @@
             this.cmbDeviceId = new System.Windows.Forms.ComboBox();
             this.cmbObjectTypeInstance = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textConnectionString
             // 
             this.textConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textConnectionString.Location = new System.Drawing.Point(7, 165);
-            this.textConnectionString.Margin = new System.Windows.Forms.Padding(2);
+            this.textConnectionString.Location = new System.Drawing.Point(10, 248);
             this.textConnectionString.Multiline = true;
             this.textConnectionString.Name = "textConnectionString";
-            this.textConnectionString.Size = new System.Drawing.Size(396, 58);
+            this.textConnectionString.Size = new System.Drawing.Size(595, 85);
             this.textConnectionString.TabIndex = 1;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::SimulatedSensors.Windows.Properties.Resources.CTDLogoMedium;
-            this.pictureBox1.Location = new System.Drawing.Point(7, 7);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Image = global::SimulatedSensors.Windows.Properties.Resources.SBLogoMedium;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(396, 141);
+            this.pictureBox1.Size = new System.Drawing.Size(618, 210);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -77,33 +77,31 @@
             // 
             this.labelDeviceName.AutoSize = true;
             this.labelDeviceName.ForeColor = System.Drawing.Color.White;
-            this.labelDeviceName.Location = new System.Drawing.Point(35, 517);
-            this.labelDeviceName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelDeviceName.Location = new System.Drawing.Point(52, 776);
             this.labelDeviceName.Name = "labelDeviceName";
-            this.labelDeviceName.Size = new System.Drawing.Size(229, 13);
+            this.labelDeviceName.Size = new System.Drawing.Size(335, 20);
             this.labelDeviceName.TabIndex = 3;
             this.labelDeviceName.Text = "DeviceInstance Id  (physical, not azure device)";
             // 
             // labelConnectionString
             // 
             this.labelConnectionString.AutoSize = true;
-            this.labelConnectionString.ForeColor = System.Drawing.Color.White;
-            this.labelConnectionString.Location = new System.Drawing.Point(7, 150);
-            this.labelConnectionString.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelConnectionString.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConnectionString.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.labelConnectionString.Location = new System.Drawing.Point(10, 225);
             this.labelConnectionString.Name = "labelConnectionString";
-            this.labelConnectionString.Size = new System.Drawing.Size(139, 13);
+            this.labelConnectionString.Size = new System.Drawing.Size(255, 20);
             this.labelConnectionString.TabIndex = 4;
-            this.labelConnectionString.Text = "Connection String (IoT Hub)";
+            this.labelConnectionString.Text = "Connection String (of IoT Hub)";
             // 
             // trackBarTemperature
             // 
             this.trackBarTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarTemperature.Location = new System.Drawing.Point(7, 485);
-            this.trackBarTemperature.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBarTemperature.Location = new System.Drawing.Point(10, 733);
             this.trackBarTemperature.Maximum = 100;
             this.trackBarTemperature.Name = "trackBarTemperature";
-            this.trackBarTemperature.Size = new System.Drawing.Size(396, 45);
+            this.trackBarTemperature.Size = new System.Drawing.Size(597, 69);
             this.trackBarTemperature.TabIndex = 7;
             this.trackBarTemperature.TabStop = false;
             this.trackBarTemperature.Value = 70;
@@ -111,11 +109,11 @@
             // labelTemperature
             // 
             this.labelTemperature.AutoSize = true;
-            this.labelTemperature.ForeColor = System.Drawing.Color.White;
-            this.labelTemperature.Location = new System.Drawing.Point(12, 474);
-            this.labelTemperature.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemperature.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.labelTemperature.Location = new System.Drawing.Point(18, 711);
             this.labelTemperature.Name = "labelTemperature";
-            this.labelTemperature.Size = new System.Drawing.Size(34, 13);
+            this.labelTemperature.Size = new System.Drawing.Size(55, 20);
             this.labelTemperature.TabIndex = 6;
             this.labelTemperature.Text = "Value";
             // 
@@ -123,10 +121,9 @@
             // 
             this.buttonSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSend.Location = new System.Drawing.Point(143, 542);
-            this.buttonSend.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSend.Location = new System.Drawing.Point(214, 807);
             this.buttonSend.Name = "buttonSend";
-            this.buttonSend.Size = new System.Drawing.Size(127, 19);
+            this.buttonSend.Size = new System.Drawing.Size(193, 28);
             this.buttonSend.TabIndex = 10;
             this.buttonSend.Text = "Send Data";
             this.buttonSend.UseVisualStyleBackColor = true;
@@ -136,50 +133,58 @@
             this.textAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textAlerts.Location = new System.Drawing.Point(7, 565);
-            this.textAlerts.Margin = new System.Windows.Forms.Padding(2);
+            this.textAlerts.BackColor = System.Drawing.SystemColors.Window;
+            this.textAlerts.Location = new System.Drawing.Point(10, 844);
             this.textAlerts.Multiline = true;
             this.textAlerts.Name = "textAlerts";
             this.textAlerts.ReadOnly = true;
             this.textAlerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textAlerts.Size = new System.Drawing.Size(398, 142);
+            this.textAlerts.Size = new System.Drawing.Size(595, 153);
             this.textAlerts.TabIndex = 11;
             // 
             // labelGateway
             // 
             this.labelGateway.AutoSize = true;
-            this.labelGateway.ForeColor = System.Drawing.Color.White;
-            this.labelGateway.Location = new System.Drawing.Point(12, 324);
+            this.labelGateway.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGateway.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.labelGateway.Location = new System.Drawing.Point(18, 486);
+            this.labelGateway.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelGateway.Name = "labelGateway";
-            this.labelGateway.Size = new System.Drawing.Size(61, 13);
+            this.labelGateway.Size = new System.Drawing.Size(372, 20);
             this.labelGateway.TabIndex = 12;
-            this.labelGateway.Text = "Gateway Id";
+            this.labelGateway.Text = "GatewayId (name of on premise IoT gateway)";
+            this.labelGateway.Click += new System.EventHandler(this.labelGateway_Click);
             // 
             // lblDevice
             // 
             this.lblDevice.AutoSize = true;
-            this.lblDevice.ForeColor = System.Drawing.Color.White;
-            this.lblDevice.Location = new System.Drawing.Point(11, 376);
+            this.lblDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDevice.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblDevice.Location = new System.Drawing.Point(16, 564);
+            this.lblDevice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDevice.Name = "lblDevice";
-            this.lblDevice.Size = new System.Drawing.Size(94, 13);
+            this.lblDevice.Size = new System.Drawing.Size(470, 20);
             this.lblDevice.TabIndex = 14;
-            this.lblDevice.Text = "DeviceInstance Id";
+            this.lblDevice.Text = "DeviceId (name of on premise device sending to gateway)";
             // 
             // lblObjectTypeInstance
             // 
             this.lblObjectTypeInstance.AutoSize = true;
-            this.lblObjectTypeInstance.ForeColor = System.Drawing.Color.White;
-            this.lblObjectTypeInstance.Location = new System.Drawing.Point(11, 432);
+            this.lblObjectTypeInstance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblObjectTypeInstance.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblObjectTypeInstance.Location = new System.Drawing.Point(16, 648);
+            this.lblObjectTypeInstance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblObjectTypeInstance.Name = "lblObjectTypeInstance";
-            this.lblObjectTypeInstance.Size = new System.Drawing.Size(106, 13);
+            this.lblObjectTypeInstance.Size = new System.Drawing.Size(498, 20);
             this.lblObjectTypeInstance.TabIndex = 16;
-            this.lblObjectTypeInstance.Text = "ObjectType Instance";
+            this.lblObjectTypeInstance.Text = "ObjectType_Instance (I/O port on device sending to gateway)";
             // 
             // btnGetDevices
             // 
-            this.btnGetDevices.Location = new System.Drawing.Point(143, 228);
+            this.btnGetDevices.Location = new System.Drawing.Point(214, 342);
+            this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetDevices.Name = "btnGetDevices";
-            this.btnGetDevices.Size = new System.Drawing.Size(127, 23);
+            this.btnGetDevices.Size = new System.Drawing.Size(190, 34);
             this.btnGetDevices.TabIndex = 17;
             this.btnGetDevices.Text = "Get IoTHub Devices";
             this.btnGetDevices.UseVisualStyleBackColor = true;
@@ -188,55 +193,71 @@
             // cmbDevices
             // 
             this.cmbDevices.FormattingEnabled = true;
-            this.cmbDevices.Location = new System.Drawing.Point(7, 261);
+            this.cmbDevices.Location = new System.Drawing.Point(10, 420);
+            this.cmbDevices.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDevices.Name = "cmbDevices";
-            this.cmbDevices.Size = new System.Drawing.Size(392, 21);
+            this.cmbDevices.Size = new System.Drawing.Size(595, 28);
             this.cmbDevices.TabIndex = 18;
             this.cmbDevices.SelectedIndexChanged += new System.EventHandler(this.cmbDevices_SelectedIndexChanged);
             // 
             // cmbGatewayId
             // 
             this.cmbGatewayId.FormattingEnabled = true;
-            this.cmbGatewayId.Location = new System.Drawing.Point(11, 340);
+            this.cmbGatewayId.Location = new System.Drawing.Point(10, 510);
+            this.cmbGatewayId.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGatewayId.Name = "cmbGatewayId";
-            this.cmbGatewayId.Size = new System.Drawing.Size(396, 21);
+            this.cmbGatewayId.Size = new System.Drawing.Size(595, 28);
             this.cmbGatewayId.TabIndex = 19;
             this.cmbGatewayId.SelectedIndexChanged += new System.EventHandler(this.cmbGatewayId_SelectedIndexChanged);
             // 
             // cmbDeviceId
             // 
             this.cmbDeviceId.FormattingEnabled = true;
-            this.cmbDeviceId.Location = new System.Drawing.Point(11, 393);
+            this.cmbDeviceId.Location = new System.Drawing.Point(10, 590);
+            this.cmbDeviceId.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDeviceId.Name = "cmbDeviceId";
-            this.cmbDeviceId.Size = new System.Drawing.Size(396, 21);
+            this.cmbDeviceId.Size = new System.Drawing.Size(595, 28);
             this.cmbDeviceId.TabIndex = 20;
             this.cmbDeviceId.SelectedIndexChanged += new System.EventHandler(this.cmbDeviceId_SelectedIndexChanged);
             // 
             // cmbObjectTypeInstance
             // 
             this.cmbObjectTypeInstance.FormattingEnabled = true;
-            this.cmbObjectTypeInstance.Location = new System.Drawing.Point(11, 449);
+            this.cmbObjectTypeInstance.Location = new System.Drawing.Point(10, 674);
+            this.cmbObjectTypeInstance.Margin = new System.Windows.Forms.Padding(4);
             this.cmbObjectTypeInstance.Name = "cmbObjectTypeInstance";
-            this.cmbObjectTypeInstance.Size = new System.Drawing.Size(396, 21);
+            this.cmbObjectTypeInstance.Size = new System.Drawing.Size(595, 28);
             this.cmbObjectTypeInstance.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(11, 245);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label1.Location = new System.Drawing.Point(16, 396);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 13);
+            this.label1.Size = new System.Drawing.Size(302, 20);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Device Id (IoTHub term)";
+            this.label1.Text = "Device Id (IoTHub registered device)";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(618, 209);
+            this.panel1.TabIndex = 23;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(410, 713);
+            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.ClientSize = new System.Drawing.Size(618, 1015);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbObjectTypeInstance);
             this.Controls.Add(this.cmbDeviceId);
@@ -252,14 +273,14 @@
             this.Controls.Add(this.labelTemperature);
             this.Controls.Add(this.labelConnectionString);
             this.Controls.Add(this.labelDeviceName);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textConnectionString);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Building sensor simulator";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,6 +304,7 @@
         private System.Windows.Forms.ComboBox cmbDeviceId;
         private System.Windows.Forms.ComboBox cmbObjectTypeInstance;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
