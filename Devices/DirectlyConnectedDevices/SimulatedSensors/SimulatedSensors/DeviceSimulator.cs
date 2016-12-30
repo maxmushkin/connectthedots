@@ -23,10 +23,7 @@ namespace SimulatedSensors
         // Event Handler for notifying the reception of a new message from IoT Hub
         public event EventHandler ReceivedMessageEventHandler;
         Random rnd = new Random();
-
-        public int SentMessagesCount { get; private set; }
-        public int CreatedMessagesCount { get; private set; }
-
+        
         public bool Pause()
         {
             return SendingData = false;
@@ -67,7 +64,6 @@ namespace SimulatedSensors
         {
             if (_deviceGateway.Connect(connectionString))
                 SendMessages();
-            CreatedMessagesCount = SentMessagesCount = 0;
             return Connected;
         }
 
@@ -90,7 +86,6 @@ namespace SimulatedSensors
                     {
                         try
                         {
-                            CreatedMessagesCount++;
                             var d2hMessage = new D2HMessage(asset);
                             double variation = 0.0;
                             if (d2hMessage.Asset.Variation)
@@ -116,7 +111,6 @@ namespace SimulatedSensors
                                         message = demoMessage,
                                         alerttype = "sent"
                                     }));
-                                SentMessagesCount++;
                                 Debug.WriteLine(logmsg);
                             }
                             else Debug.WriteLine("Connection To IoT Hub is not established. Cannot send message now");

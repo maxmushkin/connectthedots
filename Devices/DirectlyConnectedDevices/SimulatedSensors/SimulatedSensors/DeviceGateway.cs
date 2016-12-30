@@ -13,7 +13,7 @@ namespace SimulatedSensors
 {
     public class DeviceGateway
     {
-        public int SendTelemetryFreq { get; set; } = 200;
+        public int SendTelemetryFreq { get; set; } = 100;
 
         private DeviceClient _deviceClient;
         private Queue<Message> _messages = new Queue<Message>();
@@ -24,6 +24,9 @@ namespace SimulatedSensors
         // Event Handler for notifying the reception of a new message from IoT Hub
         public event EventHandler ReceivedMessageEventHandler;
         public bool Connected { get; protected set; }
+
+        protected CancellationToken ct;
+        private bool cancelledSender = true, cancelledReceiver = true;
 
         // Trigger for notifying reception of new message from Connect The Dots dashboard
         protected virtual void OnReceivedMessage(ReceivedMessageEventArgs e)
@@ -37,6 +40,10 @@ namespace SimulatedSensors
             {
                 if (Connected)
                     Disconnect();
+                while (!cancelledReceiver || !cancelledReceiver)
+                {
+                    Thread.Sleep(SendTelemetryFreq);
+                }
                 // Create Azure IoT Hub Client and open messaging channel
                 _deviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Http1);
                 _deviceClient.OpenAsync();
@@ -45,7 +52,7 @@ namespace SimulatedSensors
                 // Create send and receive tasks
                 CancellationToken ct = _tokenSource.Token;
                 Task.Factory.StartNew(async () => {
-                    while (true)
+                    while (Connected)
                     {
                         await SendData();
                         await Task.Delay(SendTelemetryFreq);
@@ -54,6 +61,7 @@ namespace SimulatedSensors
                         {
                             // Cancel was called
                             Debug.WriteLine("Sending task canceled");
+                            cancelledSender = true;
                             break;
                         }
 
@@ -62,7 +70,7 @@ namespace SimulatedSensors
 
                 Task.Factory.StartNew(async () =>
                 {
-                    while (true)
+                    while (Connected)
                     {
                         // Receive message from Cloud (for now this is a pull because only HTTP is available for UWP applications)
                         Message message = await _deviceClient.ReceiveAsync();
@@ -89,6 +97,7 @@ namespace SimulatedSensors
                         {
                             // Cancel was called
                             Debug.WriteLine("Receiving task canceled", "DE");
+                            cancelledReceiver = true;
                             break;
                         }
                     }
@@ -119,6 +128,7 @@ namespace SimulatedSensors
             {
                 try
                 {
+                    _tokenSource.Cancel();
                     _deviceClient.CloseAsync();
                     _deviceClient = null;
                     Connected = false;

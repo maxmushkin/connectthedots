@@ -9,27 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
-
 using Dapper;
 using Newtonsoft.Json;
-using SimulatedSensors;
 using SimulatedSensors.Contracts;
+using Timer = System.Windows.Forms.Timer;
 
 namespace SimulatedSensors.Windows
 {
     public partial class Form1 : Form
     {
-        DeviceSimulator DeviceInstance;
+        DeviceSimulator DeviceInstance = new DeviceSimulator();
         Dictionary<string, DeviceEntity> Devices = new Dictionary<string, DeviceEntity>();
         private DeviceEntity SelectedDevice;
 
         private List<BACmap> RefData = new List<BACmap>();
 
         private delegate void AppendAlert(string AlertText);
-
-        private int TickCount = 0;
-
-        private string ConnectionString => SelectedDevice?.ConnectionString;
+        
+        private int SentMessagesCount = 0;
 
         private string dbcs
         {
@@ -44,9 +41,6 @@ namespace SimulatedSensors.Windows
         public Form1()
         {
             InitializeComponent();
-
-            // Initialize IoT Hub client
-            DeviceInstance = new DeviceSimulator();
             
             buttonSend.Enabled = false;
             
@@ -56,22 +50,17 @@ namespace SimulatedSensors.Windows
             trackBarTemperature.ValueChanged += TrackBarTemperature_ValueChanged;
 
             TrackBarTemperature_ValueChanged(null, null);
-           
-            // Attach receive callback for alerts
-            DeviceInstance.ReceivedMessageEventHandler += DeviceInstanceReceivedMessage;
-            DeviceInstance.SentMessageEventHandler += DeviceInstance_SentMessageEventHandler;
         }
 
         private void DeviceInstance_SentMessageEventHandler(object sender, EventArgs e)
         {
             C2DMessage message = ((ReceivedMessageEventArgs) e).Message;
-            if (TickCount % 10 == 0 || message.alerttype.ToLower() == "error")
+            if (SentMessagesCount % 10 == 0 || message.alerttype.ToLower() == "error")
             {
-                TickCount = 0;
                 this.BeginInvoke(new AppendAlert(Target), message.alerttype + " - " + message.message);
             }
 
-            TickCount++;
+            SentMessagesCount++;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -137,13 +126,20 @@ namespace SimulatedSensors.Windows
 
         private void ButtonSend_Click(object sender, EventArgs e)
         {
+            ToggleSendingData();
+        }
+
+        private void ToggleSendingData()
+        {
             if (DeviceInstance.SendingData)
             {
                 DeviceInstance.Pause();
+                btnGetDevices.Enabled =
+                cmbDevices.Enabled =
                 cmbGatewayId.Enabled =
-                cmbDeviceId.Enabled =
-                cmbObjectTypeInstance.Enabled =
-                checkBoxVariation.Enabled = true;
+                    cmbDeviceId.Enabled =
+                        cmbObjectTypeInstance.Enabled =
+                            checkBoxVariation.Enabled = true;
                 buttonSend.Text = "Press to send telemetry data";
             }
             else
@@ -155,10 +151,12 @@ namespace SimulatedSensors.Windows
 
                     UpdateAsset();
 
+                    btnGetDevices.Enabled =
+                    cmbDevices.Enabled =
                     cmbGatewayId.Enabled =
-                    cmbDeviceId.Enabled =
-                    cmbObjectTypeInstance.Enabled =
-                    checkBoxVariation.Enabled = false;
+                        cmbDeviceId.Enabled =
+                            cmbObjectTypeInstance.Enabled =
+                                checkBoxVariation.Enabled = false;
 
                     buttonSend.Text = "Sending telemetry data";
                 }
@@ -169,13 +167,17 @@ namespace SimulatedSensors.Windows
         {
             try
             {
+                btnGetDevices.Enabled = false;
                 await GetDevices(textConnectionString.Text);
             }
             catch (Exception ex)
             {
                 Target(ex.Message);
             }
-            
+            finally
+            {
+                btnGetDevices.Enabled = true;
+            }
         }
 
         public async Task GetDevices(string connectionString)
@@ -201,20 +203,36 @@ namespace SimulatedSensors.Windows
 
         private void cmbDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(Devices.ContainsKey(cmbDevices.SelectedValue.ToString()))
-                Connect(Devices[cmbDevices.SelectedValue.ToString()].ConnectionString);
+            var deviceId = cmbDevices.SelectedValue.ToString();
+
+            if ((SelectedDevice == null) || (Devices.ContainsKey(deviceId) && SelectedDevice.Id != deviceId))
+            {
+                if (DeviceInstance.Connected)
+                {
+                    if (DeviceInstance.Disconnect())
+                    {
+                        buttonSend.Enabled = false;
+                    }
+                }
+
+                // Initialize IoT Hub client
+                DeviceInstance = new DeviceSimulator();
+
+                // Attach receive callback for alerts
+                DeviceInstance.ReceivedMessageEventHandler += DeviceInstanceReceivedMessage;
+                DeviceInstance.SentMessageEventHandler += DeviceInstance_SentMessageEventHandler;
+
+                SelectedDevice = Devices[deviceId];
+                Connect(SelectedDevice.ConnectionString);
+            }
+            else
+            {
+                buttonSend.Enabled = true;
+            }
         }
 
         private void Connect(string deviceConnectionString)
         {
-            if (DeviceInstance.Connected)
-            {
-                if (DeviceInstance.Disconnect())
-                {
-                    buttonSend.Enabled = false;
-                }
-            }
-           
             if (DeviceInstance.Connect(deviceConnectionString))
             {
                 buttonSend.Enabled = true;
@@ -268,25 +286,7 @@ namespace SimulatedSensors.Windows
         {
             if (DeviceInstance.Connected && DeviceInstance.SendingData)
             {
-                lblSentCount.Text = "(" + DeviceInstance.SentMessagesCount + "/" + DeviceInstance.CreatedMessagesCount + ")";
-                TickCount++;
-
-                //if (TickCount%5 == 0)
-                //{
-                //    var asset = new Asset
-                //    {
-                //        DeviceId = cmbDeviceId.Text,
-                //        GatewayId = cmbGatewayId.Text,
-                //        ObjectTypeInstance = cmbObjectTypeInstance.Text,
-                //        Value = trackBarTemperature.Value,
-                //        Variation = checkBoxVariation.Checked
-                //    };
-
-                //    var d2hMessage = new D2HMessage(asset);
-                //    var messages = new D2HMessage[] { d2hMessage };
-                //    textAlerts.Text = JsonConvert.SerializeObject(messages);
-                //    TickCount = 0;
-                //}
+                lblSentCount.Text = "(" + SentMessagesCount + ")";
             }
         }
     }
