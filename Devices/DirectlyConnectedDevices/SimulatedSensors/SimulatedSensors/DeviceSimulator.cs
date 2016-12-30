@@ -46,6 +46,7 @@ namespace SimulatedSensors
             }
             else
             {
+                Assets.Clear(); // ToDo: remove when UI will allow multiple sensors at the same time
                 Assets.Add(asset.GatewayId + asset.DeviceId, asset);
             }
         }
