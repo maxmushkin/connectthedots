@@ -32,6 +32,8 @@ namespace SimulatedSensors.Windows
         {
             get
             {
+                if (!string.IsNullOrEmpty(textDBConnectionString.Text))
+                    return textDBConnectionString.Text;
                 if (ConfigurationManager.ConnectionStrings["RefData"] != null)
                     return ConfigurationManager.ConnectionStrings["RefData"].ConnectionString;
                 else return string.Empty;
