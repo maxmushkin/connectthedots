@@ -5,17 +5,17 @@ namespace SimulatedSensors.Contracts
 {
     public class Asset
     {
-        public string GatewayId;
+        public string GatewayName;
 
         public bool Variation;
 
-        [JsonProperty("DeviceId")]
+        [JsonProperty("DeviceName")]
         public string DeviceId;
 
         [JsonProperty("ObjectType_Instance")]
         public string ObjectTypeInstance;
 
-        [JsonProperty("Value")]
+        [JsonProperty("PresentValue")]
         public double Value;
     }
 }

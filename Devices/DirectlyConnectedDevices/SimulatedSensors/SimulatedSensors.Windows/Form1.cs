@@ -101,7 +101,7 @@ namespace SimulatedSensors.Windows
                 DeviceInstance.UpdateAsset(new Asset
                 {
                     DeviceId = cmbDeviceId.Text,
-                    GatewayId = cmbGatewayId.Text,
+                    GatewayName = cmbGatewayId.Text,
                     ObjectTypeInstance = cmbObjectTypeInstance.Text,
                     Value = trackBarTemperature.Value,
                     Variation = checkBoxVariation.Checked

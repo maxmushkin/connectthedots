@@ -52,10 +52,10 @@ namespace SimulatedSensors.Windows.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("DefaultGateway")]
         public string GatewayId {
             get {
-                return ((string)(this["GatewayId"]));
+                return ((string)(this["GatewayName"]));
             }
             set {
-                this["GatewayId"] = value;
+                this["GatewayName"] = value;
             }
         }
         

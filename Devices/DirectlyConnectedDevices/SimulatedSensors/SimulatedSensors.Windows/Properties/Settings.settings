@@ -8,7 +8,7 @@
     <Setting Name="DeviceId" Type="System.String" Scope="User">
       <Value Profile="(Default)">Device Id</Value>
     </Setting>
-    <Setting Name="GatewayId" Type="System.String" Scope="User">
+    <Setting Name="GatewayName" Type="System.String" Scope="User">
       <Value Profile="(Default)">DefaultGateway</Value>
     </Setting>
     <Setting Name="ObjectTypeInstance" Type="System.String" Scope="User">

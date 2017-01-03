@@ -10,12 +10,12 @@ namespace SimulatedSensors.Contracts
         public D2HMessage(Asset asset)
         {
             this.Asset = asset;
-            this.GatewayId = asset.GatewayId;
+            this.GatewayName = asset.GatewayName;
             this.Timestamp = DateTime.UtcNow.ToString("o");
         }
 
-        [JsonProperty("GatewayId")]
-        public string GatewayId;
+        [JsonProperty("GatewayName")]
+        public string GatewayName;
 
         [JsonProperty("Timestamp")]
         public string Timestamp;

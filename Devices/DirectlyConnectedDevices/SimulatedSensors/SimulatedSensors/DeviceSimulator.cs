@@ -40,22 +40,22 @@ namespace SimulatedSensors
 
         public void UpdateAsset(Asset asset)
         {
-            if (Assets.ContainsKey(asset.GatewayId + asset.DeviceId))
+            if (Assets.ContainsKey(asset.GatewayName + asset.DeviceId))
             {
-                Assets[asset.GatewayId + asset.DeviceId] = asset;
+                Assets[asset.GatewayName + asset.DeviceId] = asset;
             }
             else
             {
                 Assets.Clear(); // ToDo: remove when UI will allow multiple sensors at the same time
-                Assets.Add(asset.GatewayId + asset.DeviceId, asset);
+                Assets.Add(asset.GatewayName + asset.DeviceId, asset);
             }
         }
 
         public bool DeleteAsset(Asset asset)
         {
-            if (Assets.ContainsKey(asset.GatewayId + asset.DeviceId))
+            if (Assets.ContainsKey(asset.GatewayName + asset.DeviceId))
             {
-                Assets.Remove(asset.GatewayId + asset.DeviceId);
+                Assets.Remove(asset.GatewayName + asset.DeviceId);
                 return true;
             }
             return false;

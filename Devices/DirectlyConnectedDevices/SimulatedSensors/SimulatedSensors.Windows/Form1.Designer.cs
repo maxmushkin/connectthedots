@@ -164,7 +164,7 @@
             this.labelGateway.Name = "labelGateway";
             this.labelGateway.Size = new System.Drawing.Size(263, 13);
             this.labelGateway.TabIndex = 12;
-            this.labelGateway.Text = "GatewayId (name of on premise IoT gateway)";
+            this.labelGateway.Text = "GatewayName (name of on premise IoT gateway)";
             // 
             // lblDevice
             // 
