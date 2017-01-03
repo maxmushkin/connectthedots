@@ -5,8 +5,10 @@ namespace SimulatedSensors.Contracts
 {
     public class Asset
     {
+        [JsonIgnore]
         public string GatewayName;
 
+        [JsonIgnore]
         public bool Variation;
 
         [JsonProperty("DeviceName")]
