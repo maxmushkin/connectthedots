@@ -243,7 +243,7 @@ namespace SimulatedSensors.Windows
             if (!string.IsNullOrEmpty(dbcs))
             {
                 RefData = GetData(dbcs);
-                var gateways = RefData.Select(d => d.GatewayId).Distinct().ToList();
+                var gateways = RefData.Select(d => d.GatewayName).Distinct().ToList();
                 cmbGatewayId.DataSource = gateways;
             }
         }
@@ -262,7 +262,7 @@ namespace SimulatedSensors.Windows
 
             if (!string.IsNullOrEmpty(gatewayId))
             {
-                var devices = RefData.Where(i => i.GatewayId == gatewayId).Select(d => d.DeviceId).Distinct().ToList();
+                var devices = RefData.Where(i => i.GatewayName == gatewayId).Select(d => d.DeviceName).Distinct().ToList();
 
                 cmbDeviceId.DataSource = devices;
             }
@@ -275,7 +275,7 @@ namespace SimulatedSensors.Windows
             if (!string.IsNullOrEmpty(gatewayId) && !string.IsNullOrEmpty(deviceId))
             {
                 var oti =
-                    RefData.Where(i => i.GatewayId == gatewayId && i.DeviceId == deviceId)
+                    RefData.Where(i => i.GatewayName == gatewayId && i.DeviceName == deviceId)
                         .Select(d => d.ObjectType_Instance)
                         .Distinct()
                         .ToList();
