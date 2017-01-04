@@ -120,12 +120,12 @@
             this.labelTemperature.AutoSize = true;
             this.labelTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTemperature.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.labelTemperature.Location = new System.Drawing.Point(11, 522);
+            this.labelTemperature.Location = new System.Drawing.Point(11, 525);
             this.labelTemperature.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTemperature.Name = "labelTemperature";
-            this.labelTemperature.Size = new System.Drawing.Size(39, 13);
+            this.labelTemperature.Size = new System.Drawing.Size(82, 13);
             this.labelTemperature.TabIndex = 6;
-            this.labelTemperature.Text = "Value";
+            this.labelTemperature.Text = "PresentValue";
             // 
             // buttonSend
             // 
@@ -162,7 +162,7 @@
             this.labelGateway.ForeColor = System.Drawing.Color.RoyalBlue;
             this.labelGateway.Location = new System.Drawing.Point(11, 372);
             this.labelGateway.Name = "labelGateway";
-            this.labelGateway.Size = new System.Drawing.Size(263, 13);
+            this.labelGateway.Size = new System.Drawing.Size(284, 13);
             this.labelGateway.TabIndex = 12;
             this.labelGateway.Text = "GatewayName (name of on premise IoT gateway)";
             // 
@@ -173,9 +173,9 @@
             this.lblDevice.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblDevice.Location = new System.Drawing.Point(11, 424);
             this.lblDevice.Name = "lblDevice";
-            this.lblDevice.Size = new System.Drawing.Size(336, 13);
+            this.lblDevice.Size = new System.Drawing.Size(357, 13);
             this.lblDevice.TabIndex = 14;
-            this.lblDevice.Text = "DeviceId (name of on premise device sending to gateway)";
+            this.lblDevice.Text = "DeviceName (name of on premise device sending to gateway)";
             // 
             // lblObjectTypeInstance
             // 
@@ -321,11 +321,13 @@
             this.Controls.Add(this.labelDeviceName);
             this.Controls.Add(this.textConnectionString);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Building sensor simulator";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
             this.panel1.ResumeLayout(false);

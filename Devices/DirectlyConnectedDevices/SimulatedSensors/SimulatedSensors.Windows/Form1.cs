@@ -25,7 +25,8 @@ namespace SimulatedSensors.Windows
         private List<BACmap> RefData = new List<BACmap>();
 
         private delegate void AppendAlert(string AlertText);
-        
+
+        private StringBuilder errorsList = new StringBuilder();
         private int SentMessagesCount = 0;
 
         private string dbcs
@@ -59,6 +60,8 @@ namespace SimulatedSensors.Windows
             C2DMessage message = ((ReceivedMessageEventArgs) e).Message;
             if (SentMessagesCount % 10 == 0 || message.alerttype.ToLower() == "error")
             {
+                if (message.alerttype.ToLower() == "error")
+                    errorsList.AppendLine(message.message);
                 this.BeginInvoke(new AppendAlert(Target), message.alerttype + " - " + message.message);
             }
 
@@ -289,6 +292,15 @@ namespace SimulatedSensors.Windows
             if (DeviceInstance.Connected && DeviceInstance.SendingData)
             {
                 lblSentCount.Text = "(" + SentMessagesCount + ")";
+            }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.E && errorsList.Length > 0)
+            {
+                textAlerts.Clear();
+                textAlerts.Text = errorsList.ToString();
             }
         }
     }
