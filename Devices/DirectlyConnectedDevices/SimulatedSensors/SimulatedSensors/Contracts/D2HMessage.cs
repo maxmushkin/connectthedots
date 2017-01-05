@@ -17,7 +17,7 @@ namespace SimulatedSensors.Contracts
         [JsonProperty("GatewayName")]
         public string GatewayName;
 
-        [JsonProperty("Time")]
+        [JsonProperty("Timestamp")]
         public string Timestamp;
 
         [JsonProperty("Asset")]
