@@ -1,7 +1,0 @@
-﻿{
-    "iothubconnectionstring": "<connectionstring>",
-    "deviceid": "<deviceid>",
-    "displayname": "IntelEdison",
-    "organization": "My Org",
-    "location":  "My location"
-}
