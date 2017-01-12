@@ -29,6 +29,14 @@ namespace SimulatedSensors.Windows
         private StringBuilder errorsList = new StringBuilder();
         private int SentMessagesCount = 0;
 
+        public string SelectedGatewayId => cmbGatewayId.Text;
+
+        public string SelectedHubDeviceId => cmbHubDevices.SelectedValue.ToString();
+
+        public string SelectedDeviceId => cmbDeviceId.SelectedItem.ToString();
+
+        public string SelectedObjectType => cmbObjectType.Text;
+
         private string dbcs
         {
             get
@@ -44,9 +52,9 @@ namespace SimulatedSensors.Windows
         public Form1()
         {
             InitializeComponent();
-            
+
             buttonSend.Enabled = false;
-            
+
             textConnectionString.TextChanged += TextConnectionString_TextChanged;
             textConnectionString.Text = Properties.Settings.Default.IoTHubConnectionString;
 
@@ -57,7 +65,7 @@ namespace SimulatedSensors.Windows
 
         private void DeviceInstance_SentMessageEventHandler(object sender, EventArgs e)
         {
-            C2DMessage message = ((ReceivedMessageEventArgs) e).Message;
+            C2DMessage message = ((ReceivedMessageEventArgs)e).Message;
             if (SentMessagesCount % 10 == 0 || message.alerttype.ToLower() == "error")
             {
                 if (message.alerttype.ToLower() == "error")
@@ -85,7 +93,7 @@ namespace SimulatedSensors.Windows
 
         private void Target(string text)
         {
-            if(textAlerts.Text.Length > 4096)
+            if (textAlerts.Text.Length > 4096)
                 textAlerts.Clear();
 
             textAlerts.AppendText(text + "\r\n");
@@ -105,7 +113,8 @@ namespace SimulatedSensors.Windows
                 {
                     DeviceId = cmbDeviceId.Text,
                     GatewayName = cmbGatewayId.Text,
-                    ObjectTypeInstance = cmbObjectTypeInstance.Text,
+                    ObjectType = cmbObjectType.Text,
+                    Instance = cmbInstance.Text,
                     Value = trackBarTemperature.Value,
                     Variation = checkBoxVariation.Checked
                 });
@@ -117,10 +126,10 @@ namespace SimulatedSensors.Windows
             Properties.Settings.Default["IoTHubConnectionString"] = textConnectionString.Text;
             Properties.Settings.Default.Save();
         }
-        
+
         private bool CheckConfig(string connectionString)
         {
-            if(!string.IsNullOrEmpty(connectionString))
+            if (!string.IsNullOrEmpty(connectionString))
             {
                 // ToDo: Add validation here
                 return true;
@@ -140,10 +149,10 @@ namespace SimulatedSensors.Windows
             {
                 DeviceInstance.Pause();
                 btnGetDevices.Enabled =
-                cmbDevices.Enabled =
+                cmbHubDevices.Enabled =
                 cmbGatewayId.Enabled =
                     cmbDeviceId.Enabled =
-                        cmbObjectTypeInstance.Enabled =
+                        cmbObjectType.Enabled =
                             checkBoxVariation.Enabled = true;
                 buttonSend.Text = "Press to send telemetry data";
             }
@@ -157,10 +166,10 @@ namespace SimulatedSensors.Windows
                     UpdateAsset();
 
                     btnGetDevices.Enabled =
-                    cmbDevices.Enabled =
+                    cmbHubDevices.Enabled =
                     cmbGatewayId.Enabled =
                         cmbDeviceId.Enabled =
-                            cmbObjectTypeInstance.Enabled =
+                            cmbObjectType.Enabled =
                                 checkBoxVariation.Enabled = false;
 
                     buttonSend.Text = "Sending telemetry data";
@@ -198,7 +207,7 @@ namespace SimulatedSensors.Windows
                 {
                     Devices.Add(device.Id, device);
                 }
-                cmbDevices.DataSource = Devices.Keys.ToList();
+                cmbHubDevices.DataSource = Devices.Keys.ToList();
             }
             catch (Exception ex)
             {
@@ -206,11 +215,10 @@ namespace SimulatedSensors.Windows
             }
         }
 
+
         private void cmbDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var deviceId = cmbDevices.SelectedValue.ToString();
-
-            if ((SelectedDevice == null) || (Devices.ContainsKey(deviceId) && SelectedDevice.Id != deviceId))
+            if ((SelectedDevice == null) || (Devices.ContainsKey(SelectedHubDeviceId) && SelectedDevice.Id != SelectedHubDeviceId))
             {
                 if (DeviceInstance.Connected)
                 {
@@ -227,7 +235,7 @@ namespace SimulatedSensors.Windows
                 DeviceInstance.ReceivedMessageEventHandler += DeviceInstanceReceivedMessage;
                 DeviceInstance.SentMessageEventHandler += DeviceInstance_SentMessageEventHandler;
 
-                SelectedDevice = Devices[deviceId];
+                SelectedDevice = Devices[SelectedHubDeviceId];
                 Connect(SelectedDevice.ConnectionString);
             }
             else
@@ -259,32 +267,35 @@ namespace SimulatedSensors.Windows
             }
         }
 
+
         private void cmbGatewayId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string gatewayId = ((ComboBox)sender).Text;
-
-            if (!string.IsNullOrEmpty(gatewayId))
+            if (string.IsNullOrEmpty(SelectedGatewayId))
             {
-                var devices = RefData.Where(i => i.GatewayName == gatewayId).Select(d => d.DeviceName).Distinct().ToList();
-
-                cmbDeviceId.DataSource = devices;
+                cmbDeviceId.DataSource = null;
+                return;
             }
+
+            var devices = RefData.Where(i => i.GatewayName == SelectedGatewayId).Select(d => d.DeviceName).Distinct().ToList();
+            cmbDeviceId.DataSource = devices.Count > 0 ? devices : null;
         }
+
 
         private void cmbDeviceId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string gatewayId = cmbGatewayId.Text;
-            string deviceId = ((ComboBox)sender).SelectedItem.ToString();
-            if (!string.IsNullOrEmpty(gatewayId) && !string.IsNullOrEmpty(deviceId))
+            if (string.IsNullOrEmpty(SelectedGatewayId) || string.IsNullOrEmpty(SelectedGatewayId))
             {
-                var oti =
-                    RefData.Where(i => i.GatewayName == gatewayId && i.DeviceName == deviceId)
-                        .Select(d => d.ObjectType_Instance)
-                        .Distinct()
-                        .ToList();
-
-                cmbObjectTypeInstance.DataSource = oti;
+                cmbObjectType.DataSource = null;
+                return;
             }
+
+            var oti =
+                RefData.Where(i => i.GatewayName == SelectedGatewayId && i.DeviceName == SelectedDeviceId)
+                    .Select(d => d.ObjectType)
+                    .Distinct()
+                    .ToList();
+
+            cmbObjectType.DataSource = oti.Count > 0 ? oti : null;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -302,6 +313,24 @@ namespace SimulatedSensors.Windows
                 textAlerts.Clear();
                 textAlerts.Text = errorsList.ToString();
             }
+        }
+
+        private void cmbObjectType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(SelectedGatewayId) || string.IsNullOrEmpty(SelectedGatewayId) || string.IsNullOrEmpty(SelectedObjectType))
+            {
+                cmbInstance.DataSource = null;
+                return;
+            }
+
+            var data =
+                RefData.Where(i => i.GatewayName == SelectedGatewayId && i.DeviceName == SelectedDeviceId && i.ObjectType == SelectedObjectType)
+                    .Select(d => d.Instance)
+                    .Distinct()
+                    .OrderBy(value=>value)
+                    .ToList();
+
+            cmbInstance.DataSource = data.Count > 0 ? data : null;
         }
     }
 }
