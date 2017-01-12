@@ -38,18 +38,20 @@
             this.textAlerts = new System.Windows.Forms.TextBox();
             this.labelGateway = new System.Windows.Forms.Label();
             this.lblDevice = new System.Windows.Forms.Label();
-            this.lblObjectTypeInstance = new System.Windows.Forms.Label();
+            this.lblObjectType = new System.Windows.Forms.Label();
             this.btnGetDevices = new System.Windows.Forms.Button();
-            this.cmbDevices = new System.Windows.Forms.ComboBox();
+            this.cmbHubDevices = new System.Windows.Forms.ComboBox();
             this.cmbGatewayId = new System.Windows.Forms.ComboBox();
             this.cmbDeviceId = new System.Windows.Forms.ComboBox();
-            this.cmbObjectTypeInstance = new System.Windows.Forms.ComboBox();
+            this.cmbObjectType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxVariation = new System.Windows.Forms.CheckBox();
             this.lblSentCount = new System.Windows.Forms.Label();
             this.textDBConnectionString = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cmbInstance = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             this.panel1.SuspendLayout();
@@ -177,16 +179,16 @@
             this.lblDevice.TabIndex = 14;
             this.lblDevice.Text = "DeviceName (name of on premise device sending to gateway)";
             // 
-            // lblObjectTypeInstance
+            // lblObjectType
             // 
-            this.lblObjectTypeInstance.AutoSize = true;
-            this.lblObjectTypeInstance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblObjectTypeInstance.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblObjectTypeInstance.Location = new System.Drawing.Point(11, 480);
-            this.lblObjectTypeInstance.Name = "lblObjectTypeInstance";
-            this.lblObjectTypeInstance.Size = new System.Drawing.Size(359, 13);
-            this.lblObjectTypeInstance.TabIndex = 16;
-            this.lblObjectTypeInstance.Text = "ObjectType_Instance (I/O port on device sending to gateway)";
+            this.lblObjectType.AutoSize = true;
+            this.lblObjectType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblObjectType.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblObjectType.Location = new System.Drawing.Point(11, 480);
+            this.lblObjectType.Name = "lblObjectType";
+            this.lblObjectType.Size = new System.Drawing.Size(72, 13);
+            this.lblObjectType.TabIndex = 16;
+            this.lblObjectType.Text = "ObjectType";
             // 
             // btnGetDevices
             // 
@@ -198,14 +200,14 @@
             this.btnGetDevices.UseVisualStyleBackColor = true;
             this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
             // 
-            // cmbDevices
+            // cmbHubDevices
             // 
-            this.cmbDevices.FormattingEnabled = true;
-            this.cmbDevices.Location = new System.Drawing.Point(7, 328);
-            this.cmbDevices.Name = "cmbDevices";
-            this.cmbDevices.Size = new System.Drawing.Size(398, 21);
-            this.cmbDevices.TabIndex = 18;
-            this.cmbDevices.SelectedIndexChanged += new System.EventHandler(this.cmbDevices_SelectedIndexChanged);
+            this.cmbHubDevices.FormattingEnabled = true;
+            this.cmbHubDevices.Location = new System.Drawing.Point(7, 328);
+            this.cmbHubDevices.Name = "cmbHubDevices";
+            this.cmbHubDevices.Size = new System.Drawing.Size(398, 21);
+            this.cmbHubDevices.TabIndex = 18;
+            this.cmbHubDevices.SelectedIndexChanged += new System.EventHandler(this.cmbDevices_SelectedIndexChanged);
             // 
             // cmbGatewayId
             // 
@@ -225,13 +227,14 @@
             this.cmbDeviceId.TabIndex = 20;
             this.cmbDeviceId.SelectedIndexChanged += new System.EventHandler(this.cmbDeviceId_SelectedIndexChanged);
             // 
-            // cmbObjectTypeInstance
+            // cmbObjectType
             // 
-            this.cmbObjectTypeInstance.FormattingEnabled = true;
-            this.cmbObjectTypeInstance.Location = new System.Drawing.Point(7, 497);
-            this.cmbObjectTypeInstance.Name = "cmbObjectTypeInstance";
-            this.cmbObjectTypeInstance.Size = new System.Drawing.Size(398, 21);
-            this.cmbObjectTypeInstance.TabIndex = 21;
+            this.cmbObjectType.FormattingEnabled = true;
+            this.cmbObjectType.Location = new System.Drawing.Point(7, 497);
+            this.cmbObjectType.Name = "cmbObjectType";
+            this.cmbObjectType.Size = new System.Drawing.Size(185, 21);
+            this.cmbObjectType.TabIndex = 21;
+            this.cmbObjectType.SelectedIndexChanged += new System.EventHandler(this.cmbObjectType_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -292,6 +295,26 @@
             this.label2.TabIndex = 27;
             this.label2.Text = "DB Connection String (Optional)";
             // 
+            // cmbInstance
+            // 
+            this.cmbInstance.DropDownWidth = 185;
+            this.cmbInstance.FormattingEnabled = true;
+            this.cmbInstance.Location = new System.Drawing.Point(222, 497);
+            this.cmbInstance.Name = "cmbInstance";
+            this.cmbInstance.Size = new System.Drawing.Size(183, 21);
+            this.cmbInstance.TabIndex = 28;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label3.Location = new System.Drawing.Point(223, 480);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "Instance";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -299,18 +322,20 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(412, 729);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cmbInstance);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textDBConnectionString);
             this.Controls.Add(this.lblSentCount);
             this.Controls.Add(this.checkBoxVariation);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cmbObjectTypeInstance);
+            this.Controls.Add(this.cmbObjectType);
             this.Controls.Add(this.cmbDeviceId);
             this.Controls.Add(this.cmbGatewayId);
-            this.Controls.Add(this.cmbDevices);
+            this.Controls.Add(this.cmbHubDevices);
             this.Controls.Add(this.btnGetDevices);
-            this.Controls.Add(this.lblObjectTypeInstance);
+            this.Controls.Add(this.lblObjectType);
             this.Controls.Add(this.lblDevice);
             this.Controls.Add(this.labelGateway);
             this.Controls.Add(this.textAlerts);
@@ -347,18 +372,20 @@
         private System.Windows.Forms.TextBox textAlerts;
         private System.Windows.Forms.Label labelGateway;
         private System.Windows.Forms.Label lblDevice;
-        private System.Windows.Forms.Label lblObjectTypeInstance;
+        private System.Windows.Forms.Label lblObjectType;
         private System.Windows.Forms.Button btnGetDevices;
-        private System.Windows.Forms.ComboBox cmbDevices;
+        private System.Windows.Forms.ComboBox cmbHubDevices;
         private System.Windows.Forms.ComboBox cmbGatewayId;
         private System.Windows.Forms.ComboBox cmbDeviceId;
-        private System.Windows.Forms.ComboBox cmbObjectTypeInstance;
+        private System.Windows.Forms.ComboBox cmbObjectType;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxVariation;
         private System.Windows.Forms.Label lblSentCount;
         private System.Windows.Forms.TextBox textDBConnectionString;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbInstance;
+        private System.Windows.Forms.Label label3;
     }
 }
 
