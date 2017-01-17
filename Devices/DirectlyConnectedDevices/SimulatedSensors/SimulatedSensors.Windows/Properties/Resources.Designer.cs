@@ -61,12 +61,12 @@ namespace SimulatedSensors.Windows.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap CTDLogoMedium {
+        internal static System.Drawing.Icon SBLogoIcon {
             get {
-                object obj = ResourceManager.GetObject("CTDLogoMedium", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("SBLogoIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
