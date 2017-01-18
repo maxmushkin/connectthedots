@@ -1,0 +1,105 @@
+{
+  "name": "AzureBlobBACmapDailyTemplate",
+  "properties": {
+    "structure": [
+      {
+        "name": "GatewayName",
+        "type": "String"
+      },
+      {
+        "name": "DeviceName",
+        "type": "String"
+      },
+      {
+        "name": "ObjectType",
+        "type": "String"
+      },
+      {
+        "name": "Instance",
+        "type": "String"
+      },
+      {
+        "name": "Region",
+        "type": "String"
+      },
+      {
+        "name": "Campus",
+        "type": "String"
+      },
+      {
+        "name": "Building",
+        "type": "String"
+      },
+      {
+        "name": "Floor",
+        "type": "String"
+      },
+      {
+        "name": "Unit",
+        "type": "String"
+      },
+      {
+        "name": "EquipmentClass",
+        "type": "String"
+      },
+      {
+        "name": "EquipmentModel",
+        "type": "String"
+      },
+      {
+        "name": "SubsystemClass",
+        "type": "String"
+      },
+      {
+        "name": "SubsystemModel",
+        "type": "String"
+      },
+      {
+        "name": "Tagname",
+        "type": "String"
+      }
+    ],
+    "published": false,
+    "type": "AzureBlob",
+    "linkedServiceName": "AzureStorageLinkedService",
+    "typeProperties": {
+      "fileName": "BACmap.csv",
+      "folderPath": "refdata/bacmap/{Year}/{Month}/{Day}",
+      "format": {
+        "type": "TextFormat",
+        "columnDelimiter": ","
+      },
+      "partitionedBy": [
+        {
+          "name": "Year",
+          "value": {
+            "type": "DateTime",
+            "date": "SliceStart",
+            "format": "yyyy"
+          }
+        },
+        {
+          "name": "Month",
+          "value": {
+            "type": "DateTime",
+            "date": "SliceStart",
+            "format": "MM"
+          }
+        },
+        {
+          "name": "Day",
+          "value": {
+            "type": "DateTime",
+            "date": "SliceStart",
+            "format": "dd"
+          }
+        }
+      ]
+    },
+    "availability": {
+      "frequency": "Day",
+      "interval": 1
+    }
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.Table.json"
+}
