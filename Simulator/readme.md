@@ -125,6 +125,6 @@ debug why data might not be coming in to IoT Hub as expected. Here is sample mes
 If you now launch Device Explorer, you can see the messages coming in to IoT Hub from your device:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Images/DeviceExplorer.png" alt="DeviceExplorer" style="width: 500px;"/>
+<img src="Images/DeviceExplorer.PNG" alt="DeviceExplorer" style="width: 500px;"/>
 
 At this stage, you can start working with the data streaming into IoT Hub.
