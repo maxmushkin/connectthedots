@@ -9,7 +9,7 @@ Azure Machine Learning.
 ## Data structure ##
 The simulator sends data in a prescribed JSON format. Here is a sample record:
 
-```JSON format
+```
 {
 	"GatewayName":"Spyros",
 	"Timestamp":"2017-01-16T14:39:42.0048083Z",
@@ -31,9 +31,10 @@ The simulator sends data in a prescribed JSON format. Here is a sample record:
     }
 }
 ```
+
 For the purposes of analyzing the data stream, the elements that are primarily of interest are the following:
 
-```key JSON elements
+```
 {
 	"GatewayName":"Spyros",
 	"Timestamp":"2017-01-16T14:39:42.0048083Z",
