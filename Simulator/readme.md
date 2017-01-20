@@ -78,7 +78,9 @@ These are described briefly below.
 
 ### Connection String ###
 This simulator mimics real devices output and sends data to the IoTHub. To start working with it, 
-you need to register a device in the IoT Hub that you will target, and get the Connection String for the IoT Hub itself. You will find all the instructions to create device IDs and retrieve connection strings [here](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md).
+you need to register a device in the IoT Hub that you will target, and get the Connection String for the IoT Hub itself. You will find all the instructions to create device IDs and retrieve connection strings [here](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md). 
+Specifically, you should install and run the graphical [Device Explorer](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md#device-explorer) tool to connect to 
+your IoT Hub and create/register one or more devices in IoT Hub.
 
 You can find connection information for managing the IoT Hub instance in the [Azure portal](http://portal.azure.com). 
 
@@ -114,7 +116,15 @@ be changed when data are being sent to the IoTHub without stopping and restartin
 
 The text box below the "Send Data" button displays selected messages as they are sent by the simulator. This is useful for checking
 whether the data is going out, and also whether the format is as you expected, particularly if you are trying to 
-debug why data might not be coming in to IoT Hub as expected. A sample message by the simulator:
+debug why data might not be coming in to IoT Hub as expected. Here is sample message sent by the simulator, as seen in the Send Data text box:
 
-`[{"GatewayName":"RedWestIoTGateway","Timestamp":"2017-01-08T21:51:34.9279678Z","Asset":{"DeviceName":"7810","ObjectType_Instance":"A_01","PresentValue":46.4}}]`
+`[{"GatewayName":"RedWestVirtualGateway","Timestamp":"2017-01-20T06:59:42.5289781Z","Asset":{"DeviceName":"3210","ObjectType":"AI","Instance":"4","PresentValue":69.0}}]`
 
+### View data received by IoT Hub ###
+
+If you now launch Device Explorer, you can see the messages coming in to IoT Hub from your device:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Images/DeviceExplorer.png" alt="DeviceExplorer" style="width: 500px;"/>
+
+At this stage, you can start working with the data streaming into IoT Hub.
