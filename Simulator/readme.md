@@ -85,7 +85,7 @@ your IoT Hub and create/register one or more devices in IoT Hub.
 You can find connection information for managing the IoT Hub instance in the [Azure portal](http://portal.azure.com). 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Images/IoTHubConnectionString.png" alt="IoTHub Connection String" style="width: 800px;"/>
+<img src="Images/IoTHubConnectionString.png" alt="IoTHub Connection String" width= "800"/>
 
 Once you have entered the IoT Hub Connection String, click "Get IoTHub Devices" to query the IoTHub for registered devices. (Note 
 that the device Id retrieved is specifically the Id of the objects registered in IoTHub, and have no necessary relation to 
@@ -125,6 +125,6 @@ debug why data might not be coming in to IoT Hub as expected. Here is sample mes
 If you now launch Device Explorer, you can see the messages coming in to IoT Hub from your device:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Images/DeviceExplorer.PNG" alt="DeviceExplorer" style="width: 500px;"/>
+<img src="Images/DeviceExplorer.PNG" alt="DeviceExplorer" width="500"/>
 
 At this stage, you can start working with the data streaming into IoT Hub.
