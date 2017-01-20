@@ -6,6 +6,16 @@ can be used to push traffic into an existing Building Management System (BMS) or
 a home-grown infrastructure based upon IoT Hub and various other Azure services such as Azure Stream Analytics, SQL Azure, and 
 Azure Machine Learning.
 
+## Software prerequisites ##
+To build and run the Smart Building Simulator, you need:
+
+1. An Microsoft Azure subscription ([free trial subscription](http://azure.microsoft.com/en-us/pricing/free-trial/) is sufficient)
+2. Visual Studio 2013 or above – [Community Edition](http://www.visualstudio.com/downloads/download-visual-studio-vs) is sufficient. Note that if you are planning only to run 
+the simulator, not modify it, you do not need Visual Studio. 
+3. The [Device Explorer](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md#device-explorer) tool 
+
+
+
 ## Data structure ##
 The simulator sends data in a prescribed JSON format. Here is a sample record:
 
@@ -55,6 +65,14 @@ is the format that is supported by Azure Stream Analytics in a TIMESTAMP BY clau
 Input or Analog Output ports
 - **Asset.Instance**: the next level category of what the Gateway is polling, such as 1, 2, or 3, to represent Analog Input 1, Analog Input 2, etc
 - **Asset.PresentValue**: the value sent by the device at the time that it is polled
+
+## Building the Smart Building Simulator ##
+To build the simulator you need to do the following:
+
+1. Clone or copy the project to your desktop
+2. From the Simulator folder, open `SimulatedSensors.sln` in Visual Studio
+3. Build either a Release or Debug version
+
 
 ## Running the Smart Building Simulator ##
 To run the simulator, execute `SimulatedSensors.Windows.exe.` (It can be found in /bin/release or /bin/debug of the project file if you have built it yourself.) 
