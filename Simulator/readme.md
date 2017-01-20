@@ -67,6 +67,7 @@ IoT Hub simultaneously. They can all use the same or different values for the va
 
 ## Using the Smart Building Simulator ##
 There are several mandatory fields you need to fill:
+
 1. Connection String (of IoT Hub)
 2. Device Id (IotHub registered device)
 3. GatewayName (name of on premise IoT gateway)
