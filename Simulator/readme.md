@@ -8,6 +8,7 @@ Azure Machine Learning.
 
 ## Data structure ##
 The simulator sends data in a prescribed JSON format. Here is a sample record:
+
 ```JSON format
 {
 	"GatewayName":"Spyros",
@@ -31,6 +32,7 @@ The simulator sends data in a prescribed JSON format. Here is a sample record:
 }
 ```
 For the purposes of analyzing the data stream, the elements that are primarily of interest are the following:
+
 ```key JSON elements
 {
 	"GatewayName":"Spyros",
@@ -100,29 +102,18 @@ will send that text. The value of retrieving known devices from the SQL Azure da
 code in the Azure Smart Building infrastructure will be able to recognize the sender of the data and perform lookups and analyses on 
 those devices.
 
-When "Send Data" button is pressed simulator starts to send 2 messages per second to the IoTHub. Sample of the sent message:
-*`[{"GatewayName":"RedWestIoTGateway","Timestamp":"2017-01-08T21:51:34.9279678Z","Asset":{"DeviceName":"7810","ObjectType_Instance":"A_01","PresentValue":46.4}}]`*
+### GatewayName, DeviceName, ObjectType, and Instance ###
 
+When "Send Data" button is pressed the simulator starts to send 2 messages per second to the IoTHub with the values of the fields GatewayName, DeviceName, ObjectType, and Instance being as typed in 
+the text boxes. In addition, the similator sends a PresentValue field with a value as specified by the Value label set by the Trackbar slider position. You can 
+also check the box "Add 10% variation" to vary the PresentValue by a random number between -10% and +10% of the Trackbar value. The Trackbar value can 
+be changed when data are being sent to the IoTHub without stopping and restarting the transmission. To stop the transmission, click the "Sending telemetry button".
 
-Trackbar position defines value from 1 to 100, to add some 10% variation appropriate checkbox needs to be checked.
-Trackbar value can be modified even when connection is already established and data are sending to the Hub.
- 
+### Send Data text box ###
 
+The text box below the "Send Data" button displays selected messages as they are sent by the simulator. This is useful for checking
+whether the data is going out, and also whether the format is as you expected, particularly if you are trying to 
+debug why data might not be coming in to IoT Hub as expected. A sample message by the simulator:
 
-## ConnectTheDots getting started project using Raspberry Pi and Arduino ##
-For this project, follow the instructions for configuring the following:
+`[{"GatewayName":"RedWestIoTGateway","Timestamp":"2017-01-08T21:51:34.9279678Z","Asset":{"DeviceName":"7810","ObjectType_Instance":"A_01","PresentValue":46.4}}]`
 
-1. [Arduino UNO with weather shield](GatewayConnectedDevices/Arduino%20UNO/Weather/WeatherShieldJson/Arduino-and-Weather-Shield-setup.md) 
-2. [Raspberry Pi](Gateways/GatewayService/RaspberryPi-Gateway-setup.md) 
-
-## Connect The Dots with all the other devices ##
-
-To build your own end-to-end configuration you need to identify and configure the device(s) that will be producing the data to be pushed to Azure and displayed/analyzed. Devices fall generally into two categories - those that can connect directly to the Internet, and those that need to connect to the Internet through some intermediate device or gateway. Sample code and documentation can be found in the following folders:
-
-1. [Simple devices requiring a gateway](GatewayConnectedDevices/) - Devices too small or basic to support a secure IP connection, or which need to be aggregated before sending to Azure
-2. [Devices connecting directly to Azure](DirectlyConnectedDevices/) - Devices powerful enough to support a secure IP connection
-3. [Gateways or other intermediary devices](Gateways/) - Devices which collect data from other devices and upload to Azure. These can be very simple (e.g. just package and send the data securely to Azure without changes), or very sophisticated (e.g. allow for device authentication, provisioning, management, and communications). 
-
-
-### Build a sensor infrastructure ###
-For additional scenarios, or more advanced configurations, follow the setup instructions in the folders for the devices or gateways listed above.
