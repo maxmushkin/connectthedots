@@ -47,20 +47,20 @@ For the purposes of analyzing the data stream, the elements that are primarily o
 }
 ```
 This would be interpreted as follows:
-- GatewayName: the device sending data, for example, an on-premise IoT BACnet Gateway
-- Timestamp: the time that the device is polled by the gateway. The simulator sends the timestamp in ISO 8601 format because that 
+- **GatewayName**: the device sending data, for example, an on-premise IoT BACnet Gateway
+- **Timestamp**: the time that the device is polled by the gateway. The simulator sends the timestamp in ISO 8601 format because that 
 is the format that is supported by Azure Stream Analytics in a TIMESTAMP BY clause.
-- Asset.DeviceName: the device the Gateway is polling, for example a building controller or a VAV
-- Asset.ObjectType: the top level category of what the Gateway is polling on the physical device, such as the Analog 
+- **Asset.DeviceName**: the device the Gateway is polling, for example a building controller or a VAV
+- **Asset.ObjectType**: the top level category of what the Gateway is polling on the physical device, such as the Analog 
 Input or Analog Output ports
-- Asset.Instance: the next level category of what the Gateway is polling, such as 1, 2, or 3, to represent Analog Input 1, Analog Input 2, etc
-- Asset.PresentValue: the value sent by the device at the time that it is polled
+- **Asset.Instance**: the next level category of what the Gateway is polling, such as 1, 2, or 3, to represent Analog Input 1, Analog Input 2, etc
+- **Asset.PresentValue**: the value sent by the device at the time that it is polled
 
 ## Running the Smart Building Simulator ##
 To run the simulator, execute `SimulatedSensors.Windows.exe.` (It can be found in /bin/release or /bin/debug of the project file if you have built it yourself.) 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Images/SmartBuildingSimulator.PNG" alt="Building sensor simulator" style="width: 400px;"/>
+<img src="Images/SmartBuildingSimulator.PNG" alt="Building sensor simulator" style="width: 340px;"/>
 
 You can launch multiple instances of the simulator, for example if you wish to simulate multiple devices sending to the same 
 IoT Hub simultaneously. They can all use the same or different values for the various fields.
