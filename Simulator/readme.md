@@ -60,7 +60,7 @@ Input or Analog Output ports
 To run the simulator, execute `SimulatedSensors.Windows.exe.` (It can be found in /bin/release or /bin/debug of the project file if you have built it yourself.) 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Images/SmartBuildingSimulator.PNG" alt="Building sensor simulator" style="width: 280px;"/>
+<img src="Images/SmartBuildingSimulator.PNG" alt="Building sensor simulator" width="280"/>
 
 You can launch multiple instances of the simulator, for example if you wish to simulate multiple devices sending to the same 
 IoT Hub simultaneously. They can all use the same or different values for the various fields.
