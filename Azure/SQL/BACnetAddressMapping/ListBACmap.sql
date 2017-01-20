@@ -1,0 +1,1 @@
+SELECT GatewayName, DeviceName, ObjectType, Instance, Region+'/'+Campus+'/'+Building+'/'+EquipmentClass+'/'+Floor+'/'+Unit,Tagname FROM BACMAP   ORDER BY GATEWAYNAME ASC, DEVICENAME ASC, ObjectType ASC, Instance ASC
