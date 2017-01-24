@@ -1,6 +1,6 @@
-# EventHistorian subsystem #
+# Event Historian subsystem #
 
-<img src="Images/architecture.png" width="604" height="360">
+<img src="Images/event_historian.png" width="879" height="360">
 
 ## Brief description
 EventHistorian subsystem based on Azure SQL and devoted to store raw data which comes from Azure Stream Analytics job. 
@@ -11,7 +11,7 @@ There are two types of records:
 	 * data goes to MissingBACmapEntries table
 
 
-## EventHistorian SQL Queries ##
+## Event Historian SQL Queries ##
 The SQL files in this folder are as follows 
 
 1. dbo.EquipmentTagNames.Table.sql
@@ -26,7 +26,7 @@ The SQL files in this folder are as follows
 Workflow as described in the project readme.md.
 [SQL Database](/readme.md#Create-Azure-SQL-Database)
 
-## Create EventHistorian tables ##
+## Create Event Historian tables ##
 * Open the Azure Management Portal, and open "WO_Procs" SQL Database: Menu in top left corner > SQL Databases > WO_Procs >
 * Click tools icon and select `Query editor (preview)` tool
 * Click login
