@@ -24,11 +24,12 @@ The SQL files in this folder are as follows
 
 ## Prerequisites ##
 Workflow as described in the project readme.md.
-[SQL Database](/readme.md#Create-Azure-SQL-Database)
+
+* [SQL Database](../readme.md#Create-Azure-SQL-Database)
 
 ## Create Event Historian tables ##
 * Open the Azure Management Portal, and open "WO_Procs" SQL Database: Menu in top left corner > SQL Databases > WO_Procs >
-* Click tools icon and select `Query editor (preview)` tool
+* Click `tools` icon and select `Query editor (preview)` tool
 * Click login
 	* `Authorization type`: `SQL server authentication`
 	* `Login`: `WO_Admin`
