@@ -24,5 +24,22 @@ The SQL files in this folder are as follows
 
 ## Prerequisites ##
 Workflow as described in the project readme.md.
+[SQL Database](/readme.md#Create-Azure-SQL-Database)
+
+## Create EventHistorian tables ##
+* Open the Azure Management Portal, and open "WO_Procs" SQL Database: Menu in top left corner > SQL Databases > WO_Procs >
+* Click tools icon and select `Query editor (preview)` tool
+* Click login
+	* `Authorization type`: `SQL server authentication`
+	* `Login`: `WO_Admin`
+	* `Password`: password chosen during database creation
+	* Click `OK`
+	* `"Authenticated as WO_Admin"` notification message should appear
+	* Execute `dbo.EventHistorian.Table.sql`:
+		* Click open query and select `dbo.EventHistorian.Table.sql` file or paste `dbo.EventHistorian.Table.sql` contents into text area
+		* Click `Run`
+	* Execute `dbo.MissingBACmapEntries.Table.sql`
+	* Execute `dbo.EquipmentTagNames.Table.sql`
+
 
 
