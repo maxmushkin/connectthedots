@@ -9,46 +9,67 @@ These queries are hard-coded to the data streams defined in the getting started 
 
 * If you have used the ARM template to deploy the Smart Building solution, then you can edit the Stream Analytics job directly in the portal, in the Resource Group created during the deployment of the solution.
 * If you are creating a new job, read this:
-    * Open the [Azure Management Portal](http://portal.azure.com), and create a new job “Log All Events”:
-        * "+” in top left corner > Internet Of Things > Stream Analytics >
-            * Job name: “Log All Events”.
-            * Subscription: same as the one used for the other parts of the solution.
-            * Resource Group: same as the one used for the other parts of the solution.
-            * Location: your choice, considering it is always better to have the various services of a solution in the same region.
-            * Click on Create
+    * Open the [Azure Management Portal](http://portal.azure.com), and create a new job “LogAllEvents”:
+        * "+” in top left corner > `Internet Of Thing`s > `Stream Analytics job` >
+            * `Job name`: `LogAllEvents`.
+            * `Subscription`: same as the one used for the other parts of the solution.
+            * `Resource Group`: same as the one used for the other parts of the solution.
+            * `Location`: your choice, considering it is always better to have the various services of a solution in the same region.
+            * Click on `Create`
+    * In the `Resource Groups` list, select your solution's resource group.
+    * Select the stream analytics job `LogAllEvents`
     * Create two inputs
-        * In the Resource Groups list, select your solution's resource group.
-        * Select the stream analytics job "Log All Events"
-        * Click on the Inputs tile in the Aggregates job.
-        * *Inputs blade > Add >*
-            * Input Alias: “SBHubv2”
-            * Source Type: "Data Stream"
-            * Source: "IoT Hub"
-            * Subscription: pick the current subscription
-            * IoTHub: pick the IoT Hub name of your solution
-            * Shared access policy name: "iothubowner"
-            * Event serialization format: "JSON"
-            * Encoding: "UTF-8"
-			
-# CONTINUE EDITING FROM HERE (SPYROS NOTE #)			
-			
-    * Create a query 
-        * Select the Query tile in the Aggregates job blade
-        * Copy/paste contents `Aggregates.sql` found in the `ConnectTheDots\Azure\StreamAnalyticsQueries` folder in Windows Explorer
-        * Save
-    * Create an output
-        * Select the Output tile in the Aggregates job blade
-        * *Output tile > Add >*
-            * Output Alias: your choice
-            * Sink: "Event Hub"
-            * Subscription: pick the current subscription
-            * Service bus namespace: Pick the one named after the solution name you entered during the deployment of the ARM template
-            * Event Hub Name: "ehalerts"
-            * Event Hub policy name: "RootManageSharedAccessKey"
-            * Event Serialization format: "JSON"
-            * Encoding: "UTF-8"
-            * Click on Create
-        * **Note** You will likely get an error just about the same container being used as input and output. This is OK, the job will still work.
-
+        * Click on the `Inputs` tile in the `Job Topology` section
+        * *Inputs blade > `Add` >*
+            * `Input Alias`: `SBHubv2`
+            * `Source Type`: `Data Stream`
+            * `Source`: `IoT Hub`
+            * `Subscription`: `Use IoT hub from current subscription`
+            * `IoTHub`: pick the IoT Hub name of your solution
+            * `Endpoint`: `Messaging`
+            * `Shared access policy name`: `iothubowner`
+            * `Consumer group`: `$Default`
+            * `Event serialization format`: `JSON`
+            * `Encoding`: `UTF-8`
+            * Click on `Create`
+        * *Inputs blade > `Add` >*
+	        * `Input Alias`: `BACmap`
+	        * `Source Type`: `Reference data`
+            * `Subscription`: `Use blob storage from current subscription`
+            * `Storage account`: `tr24smartbuilding`
+            * `Container`: `refdata`
+            * `Path pattern`: `bacmap/{date}/{time}/BACmap.csv`
+            * `Date format`: `YYYY\MM\DD`
+            * `Time format`: `HH`
+            * `Event serialization format`: `CSV`
+            * `Delimiter`: `comma(,)`
+            * `Encoding`: `UTF-8`
+            * Click on `Create`
+	* Create a query 
+        * Click on the `Query` tile in the `Job Topology` section
+        * Copy/paste contents `LogAllEvents.sql` found in the `ConnectTheDots\Azure\StreamAnalytics` folder in Windows Explorer
+        * Click on `Save`   
+    * Create two outputs
+        * Select the `Outputs` tile in the `Job Topology` section
+        * *`Outputs` blade > `Add` >*
+            * `Output Alias`: `EventHistorian`
+            * `Sink`: `SQL database`
+            * `Subscription`: `Use SQL database from current subscription`
+            * `Database`: your choice
+            * `Username`: DB user name
+            * `Password`: DB user password
+            * `Table`: `EventHistorian`
+            * Click on `Create`
+        * *`Outputs` blade > `Add` >*
+            * `Output Alias`: `MissingBACmapEntries`
+            * `Sink`: `SQL database`
+            * `Subscription`: `Use SQL database from current subscription`
+            * `Database`: your choice
+            * `Username`: DB user name
+            * `Password`: DB user password
+            * `Table`: `MissingBACmapEntries`
+            * Click on `Create`
     * Start the Job
-        * *Dashboard > Start* on the bottom bar.
+        * *LogAllEvents blade > `Start`* on the top bar.
+        * `Job output start time`: `Now`
+        * Click on `Start`
