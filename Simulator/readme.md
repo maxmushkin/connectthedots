@@ -115,7 +115,7 @@ affect the data packet being transmitted by the simulator.
 
 ### Device Id ###
 
-If you are deploying an Azure Smart Building infrastructure as outlined in [], in addition to the IoTHub connection string, you optionally can enter the Connection String to the SQL Azure 
+If you are deploying an Azure Smart Building infrastructure as outlined in the simulator's parent project, in addition to the IoTHub connection string, you optionally can enter the Connection String to the SQL Azure 
 database where telemetry data will be saved. 
 When Get IoTHub Devices button is pressed the simulator will connect to the IoTHub and download list of devices associated with it, as before. 
 However, the simulator will also retrieve a list of known GatewayNames, DeviceNames, ObjectTypes, and Instances, and populate the corresponding 
@@ -123,6 +123,15 @@ drop down lists. This is strictly optional, as the you can enter whatever text y
 will send that text. The value of retrieving known devices from the SQL Azure database is only that the subsequent event processing 
 code in the Azure Smart Building infrastructure will be able to recognize the sender of the data and perform lookups and analyses on 
 those devices.
+
+*Note* In order for the simulator to be able to query the SQL database, you must first configure the Firewall rules for the database to allow your laptop to access the server. 
+To do this, select the SQL database in the portal, then `Set server firewall` as shown below:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Images/SQLServerSetFirewallRule.png" alt="SQL Firewall rule" width= "800"/>
+
+In the Firewall Settings pane, click `Add Client IP` and then `Save`.
+
 
 ### GatewayName, DeviceName, ObjectType, and Instance ###
 
