@@ -128,7 +128,7 @@ those devices.
 To do this, select the SQL database in the portal, then `Set server firewall` as shown below:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Images/SQLServerSetFirewallRule.png" alt="SQL Firewall rule" width= "800"/>
+<img src="Images/SQLServerSetFirewallRule.PNG" alt="SQL Firewall rule" width= "800"/>
 
 In the Firewall Settings pane, click `Add Client IP` and then `Save`.
 
