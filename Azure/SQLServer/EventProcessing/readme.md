@@ -17,17 +17,17 @@ The SQL files in this folder are as follows
 	* EquipmentTagNames table creation script
 5. dbo.MissingTagNames.Table.sql
 	* MissingTagNames table creation script
-6. dbo.sp_PopulateEquipmentPivot.StoredProcedure.sql
+6. dbo.sp_PopulateEquipmentPivot.sql
 	* sp_PopulateEquipmentPivot stored procedure creation script
-7. dbo.sp_PopulateEquipmentPivotDynamically.StoredProcedure.sql
+7. dbo.sp_PopulateEquipmentPivotDynamically.sql
 	* sp_PopulateEquipmentPivotDynamically stored procedure creation script
-8. dbo.sp_PopulateEquipmentPivots.StoredProcedure.sql
+8. dbo.sp_PopulateEquipmentPivots.sql
 	* sp_PopulateEquipmentPivots stored procedure creation script
-9. dbo.sp_PopulateEquipmentPivotsDynamically.StoredProcedure.sql
+9. dbo.sp_PopulateEquipmentPivotsDynamically.sql
 	* sp_PopulateEquipmentPivotsDynamically stored procedure creation script
-10. dbo.sp_UpdatePivotTableSchema.StoredProcedure.sql
+10. dbo.sp_UpdatePivotTableSchema.sql
 	* sp_UpdatePivotTableSchema stored procedure creation script
-11. dbo.sp_UpdatePivotTableSchemas.StoredProcedure.sql
+11. dbo.sp_UpdatePivotTableSchemas.sql
 	* sp_UpdatePivotTableSchemas stored procedure creation script
 
 
@@ -53,9 +53,9 @@ Workflow as described in the project readme.md.
 	* Execute `dbo.Pivot_VAV.Table.sql`
 	* Execute `dbo.EquipmentTagNames.Table.sql`
 	* Execute `dbo.MissingTagNames.Table.sql`
-	* Execute `dbo.sp_PopulateEquipmentPivot.StoredProcedure.sql`
-	* Execute `dbo.sp_PopulateEquipmentPivotDynamically.StoredProcedure.sql`
-	* Execute `dbo.sp_PopulateEquipmentPivots.StoredProcedure.sql`
-	* Execute `dbo.sp_PopulateEquipmentPivotsDynamically.StoredProcedure.sql`
-	* Execute `dbo.sp_UpdatePivotTableSchema.StoredProcedure.sql`
-	* Execute `dbo.sp_UpdatePivotTableSchemas.StoredProcedure.sql`
+	* Execute `dbo.sp_PopulateEquipmentPivot.sql`
+	* Execute `dbo.sp_PopulateEquipmentPivotDynamically.sql`
+	* Execute `dbo.sp_PopulateEquipmentPivots.sql`
+	* Execute `dbo.sp_PopulateEquipmentPivotsDynamically.sql`
+	* Execute `dbo.sp_UpdatePivotTableSchema.sql`
+	* Execute `dbo.sp_UpdatePivotTableSchemas.sql`

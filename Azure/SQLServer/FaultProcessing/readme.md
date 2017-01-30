@@ -13,9 +13,9 @@ The SQL files in this folder are as follows
 	* FaultSummary table creation script
 3. dbo.DesignVAVInformation.Table.sql
 	* DesignVAVInformation table creation script
-4. dbo.sp_PopulateFaultInstances.StoredProcedure.sql
+4. dbo.sp_PopulateFaultInstances.sql
 	* sp_PopulateFaultInstances stored procedure creation script
-5. dbo.sp_PopulateFaultSummary.StoredProcedure.sql
+5. dbo.sp_PopulateFaultSummary.sql
 	* sp_PopulateFaultSummary stored procedure creation script
 
 
@@ -39,8 +39,8 @@ Workflow as described in the project readme.md.
 		* Click `Run`
 	* Execute `dbo.FaultSummary.Table.sql`
 	* Execute `dbo.DesignVAVInformation.Table.sql`
-	* Execute `dbo.sp_PopulateFaultInstances.StoredProcedure.sql`
-	* Execute `dbo.sp_PopulateFaultSummary.StoredProcedure.sql`
+	* Execute `dbo.sp_PopulateFaultInstances.sql`
+	* Execute `dbo.sp_PopulateFaultSummary.sql`
 
 
 
