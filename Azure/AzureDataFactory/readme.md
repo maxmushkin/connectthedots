@@ -1,3 +1,5 @@
+<img src="Images/data_factory.png" style="width:100%;">
+
 # Data Factory setup #
 The instructions below will help you setup the Data Factory in the Smart Buildings project in the Azure portal. The Data Factory produces BACmap.csv files in scheduled manner, which is used by Stream Analytics job then.
 
