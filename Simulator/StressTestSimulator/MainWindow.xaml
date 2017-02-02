@@ -6,11 +6,15 @@
         xmlns:viewModels="clr-namespace:StressTestSimulator.ViewModels"
         xmlns:converters="clr-namespace:StressTestSimulator.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Stress test simulator" 
         SizeToContent="WidthAndHeight"
-        ResizeMode="CanResize"
         SnapsToDevicePixels="True"
+        WindowStartupLocation="Manual"
+        Top="0"
+        Left="0"
+        MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
         >
     <Window.DataContext>
         <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
@@ -20,6 +24,7 @@
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:DoubleSumConverter x:Key="DoubleSumConverter" />
 
         <Style x:Key="ConnectionStringTextBox" TargetType="TextBox">
             <Setter Property="TextWrapping" Value="Wrap" />
@@ -33,11 +38,40 @@
         </Style>
 
     </Window.Resources>
-    <DockPanel LastChildFill="True" Margin="5">
-        <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition>
+                <RowDefinition.Style>
+                    <Style TargetType="RowDefinition">
+                        <Setter Property="Height" Value="Auto"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAdvancedMode}" Value="True">
+                                <Setter Property="Height" Value="*"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
+            <RowDefinition>
+                <RowDefinition.Style>
+                    <Style TargetType="RowDefinition">
+                        <Setter Property="Height" Value="Auto"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAdvancedMode}" Value="False">
+                                <Setter Property="Height" Value="*"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DockPanel Margin="0 0 0 10">
             <Grid DockPanel.Dock="Right" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <CheckBox Margin="10 5 0 0" VerticalAlignment="Top" Content="Advanced mode" IsChecked="{Binding IsAdvancedMode}"></CheckBox>
             </Grid>
+
             <Expander MinWidth="600px" DockPanel.Dock="Left" Header="Connection details" IsExpanded="{Binding IsConnected, Converter={StaticResource InverseBooleanConverter}, Mode=OneWay}">
                 <StackPanel  Orientation="Vertical">
                     <Label Content="DB connection string">
@@ -70,7 +104,8 @@
                 </StackPanel>
             </Expander>
         </DockPanel>
-        <Button DockPanel.Dock="Bottom" Command="{Binding ToggleStartCommand}" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+        <Button Grid.Row="2" MinHeight="40" VerticalAlignment="Stretch" Command="{Binding ToggleStartCommand}" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
@@ -82,18 +117,15 @@
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding IsAdvancedMode}" Value="False">
-                            <Setter Property="Height" Value="100"></Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsAdvancedMode}" Value="True">
-                            <Setter Property="Height" Value="20"></Setter>
+                            <Setter Property="Height" Value="NaN"></Setter>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
 
-        <Grid Visibility="{Binding IsAdvancedMode, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <DataGrid Height="500" Margin="0 5 0 5" SelectionMode="Single" ItemsSource="{Binding Sensors}" Visibility="{Binding DevicesGridVisibility}" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+        <Grid Grid.Row="1" VerticalAlignment="Stretch" Visibility="{Binding IsAdvancedMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <DataGrid Margin="0 5 0 5" SelectionMode="Single" ItemsSource="{Binding Sensors}" Visibility="{Binding DevicesGridVisibility}" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
@@ -120,11 +152,18 @@
                     <DataGridTextColumn Header="Gateway" Binding="{Binding Sensor.BACmap.GatewayName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Sensor.FullAssetPath}" Width="Auto" />
 
-                    <DataGridTemplateColumn Width="Auto" Header="Value">
+                    <DataGridTemplateColumn MinWidth="200" Width="200" Header="Value">
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Width="200" Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <DockPanel LastChildFill="True">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <StackPanel.Width>
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=DataGridColumnHeader}" Converter="{StaticResource DoubleSumConverter}">
+                                            <Binding.ConverterParameter>
+                                                <system:Double>-10</system:Double>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </StackPanel.Width>
+                                    <DockPanel Margin="5" LastChildFill="True">
                                         <TextBox DockPanel.Dock="Left" Text="{Binding MinRandom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="25px"></TextBox>
                                         <TextBox DockPanel.Dock="Right" Text="{Binding MaxRandom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="25px"></TextBox>
 
@@ -159,10 +198,17 @@
 
                     <DataGridTextColumn Header="Sent Value" Binding="{Binding Sensor.LastReadingValue}" />
 
-                    <DataGridTemplateColumn Width="Auto" Header="Interval">
+                    <DataGridTemplateColumn MinWidth="200" Width="200" Header="Interval">
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <StackPanel Width="200" Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <StackPanel.Width>
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=DataGridColumnHeader}" Converter="{StaticResource DoubleSumConverter}">
+                                            <Binding.ConverterParameter>
+                                                <system:Double>-10</system:Double>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </StackPanel.Width>
                                     <DockPanel LastChildFill="True">
                                         <TextBox DockPanel.Dock="Left" Text="{Binding MinIntervalRandom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50px"></TextBox>
                                         <TextBox DockPanel.Dock="Right" Text="{Binding MaxIntervalRandom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50px"></TextBox>
@@ -186,9 +232,15 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <DockPanel DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <Button DockPanel.Dock="Bottom" Content="Randomize" Command="{Binding RandomizeReadInCommand}"></Button>
-                                </DockPanel>
+                                <Button DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=DataGrid}}" Content="Randomize" Command="{Binding RandomizeReadInCommand}">
+                                    <Button.Width>
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=DataGridColumnHeader}" Converter="{StaticResource DoubleSumConverter}">
+                                            <Binding.ConverterParameter>
+                                                <system:Double>-10</system:Double>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </Button.Width>
+                                </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.HeaderTemplate>
                         <DataGridTemplateColumn.CellTemplate>
@@ -201,5 +253,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-    </DockPanel>
+    </Grid>
 </Window>

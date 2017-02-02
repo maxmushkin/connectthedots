@@ -179,6 +179,7 @@
     <Compile Include="Commands\DelegatedCommand.cs" />
     <Compile Include="Commands\IAsyncCommand.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\DoubleSumConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\StringToBooleanConverter.cs" />
     <Compile Include="Converters\TimeSpanToDoubleConverter.cs" />
