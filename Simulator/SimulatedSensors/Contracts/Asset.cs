@@ -26,5 +26,8 @@ namespace SimulatedSensors.Contracts
 
         [JsonProperty("PresentValue")]
         public double Value;
+
+        [JsonProperty("IsSimulatedDevice")]
+        public bool IsSimulatedDevice = true;
     }
 }
