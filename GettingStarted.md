@@ -19,7 +19,7 @@ Before running through the following steps, you need to have
 
 ## Overall architecture ##
 
-Here is a picture of this step in the end-to-end solution:
+Here is a picture of the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="Images/e2e-medium.png" alt="End to end solution" width="800"/>
