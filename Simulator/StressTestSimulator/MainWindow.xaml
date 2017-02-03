@@ -150,6 +150,7 @@
                     </DataGridTemplateColumn>
 
                     <DataGridTextColumn Header="Gateway" Binding="{Binding Sensor.BACmap.GatewayName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tag" Binding="{Binding Sensor.BACmap.TagName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Sensor.FullAssetPath}" Width="Auto" />
 
                     <DataGridTemplateColumn MinWidth="200" Width="200" Header="Value">
