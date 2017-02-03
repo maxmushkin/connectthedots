@@ -10,60 +10,24 @@ BMSs like ICONICS do. The working solution is NOT meant to be a replacement for 
 a Proof of Concept.
 
 ## Prerequisites
-Before coming to this lab, you need to have
+Before running through the following steps, you need to have
 
-* [Microsoft SQL Server Management Studio](https://msdn.microsoft.com/library/mt238290.aspx) installed on your laptop
-* [Device Explorer](https://github.com/Azure/azure-iot-sdks/releases) installed on your laptop
-* Signed up for a [GitHub](https://github.com/) account
+* [Microsoft SQL Server Management Studio](https://msdn.microsoft.com/library/mt238290.aspx) installed
+* [Device Explorer](https://github.com/Azure/azure-iot-sdks/releases) installed
 * Joined the [Azure-Samples](https://repos.opensource.microsoft.com/Azure-Samples) organization in GitHub
 
-### Optional
-Most attendees will simply download some software binaries for a device simulator. An optional component of this lab 
-uses Visual Studio to edit and compile the simulator. A workshop participant wishing to do this needs 
 
-* Git Shell or Git for Windows installed on their laptop
-* Visual Studio 2013 or later installed on their laptop
-
-
-## Assumptions
-In order to complete this lab without seriously struggling, you need to have a good understanding of Microsoft Azure. Specifically, you 
-should have done each of the following more than a few times:
-
-* Created an IoT Hub or Event Hub
-* Used Device Explorer to view data coming into IoT Hub
-* Created an Azure Stream Analytics job
-* Created and used Azure blob storage
-* Created tables, views, and stored procedures in SQL Azure
-
-## Getting Started
-Each workshop participant has been provided access to the Azure subscription for the lab, and will be 
-building assets in that subscription. In addition, we have already created some objects that every participant 
-will be using. Here are the names you need to know:
-
-> Azure subscription ID: `Microsoft Azure Internal Consumption (da1dbdc2-....)`<br>
-> IoT Hub: `TR24SmartBuildingHub` <br>
-> IoT Hub registered DeviceId: `tr24IoTHubDeviceId` <br>
-> SQL Server: `tr24smartbuilding.database.windows.net` <br>
-> SQL Database: `tr24SmartBuilding` <br>
-> SQL account: `TR24_Admin` <br>
-> SQL password: `PCS2017!`<br>
-> Azure blob storage account: `tr24smartbuilding`<br>
-> Device map file: `refdata/bacmap/2017/.../.../bacmap.csv`
-
-Whenever you encounter an instruction in the lab to create something, you should preface
-the name of the object you are creating with your initials. For example, if your alias is `Spyros` and are asked to create 
-an Azure Stream Analytics job called `{Alias}LogAllEvents` you would create a job with the 
-name `SpyrosLogAllEvents`. 
+## Overall architecture ##
 
 Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="Images/e2e-medium.png" alt="End to end solution" width="800"/>
 
-In this workshop we will build this end-to-end solution in stages.
+In this set of steps, you will build this end-to-end solution in stages.
 
 
-## Exercise 1: Load a device simulator
+## Step 1: Load a device simulator
 Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -92,14 +56,14 @@ Please follow these steps:
     - **ObjectType**: Select from drop-down list <br>
     - **Instance**: Select from drop-down list <br>
 
-    You have successfully completed this exercise if and only if the data that you see being transmitted from the Simulator is included in the data you see being received in Device Explorer. Bear in mind that the data from all
+    You have successfully completed this step if and only if the data that you see being transmitted from the Simulator is included in the data you see being received in Device Explorer. Bear in mind that the data from all
     the other workshop participants is also being received by the same IoT Hub, so you will need to watch carefully for your data.
 
 *Estimated time to complete: 15 minutes*
 
 
-## Exercise 2: Create an Azure Stream Analytics job
-In this exercise, you will push data from the device into blob storage. Here is a picture of this step in the end-to-end solution:
+## Step 2: Create an Azure Stream Analytics job
+In this step, you will push data from the device into blob storage. Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="Images/exercise2-medium.png" alt="Exercise 1" width="320"/>
@@ -114,14 +78,14 @@ create an Azure Stream Analytics job called `{Alias}LogAllEvents` that outputs t
     - Output the data to a blob called `{Alias}ASAOutput` in the container `tr24smartbuilding`
 3. Download the output blob to verify that you have correctly captured only the data from your Simulator.
 
-You have successfully completed this exercise if and only if the data that you saw in Device Explorer is represented in the output blob, but 
+You have successfully completed this Step if and only if the data that you saw in Device Explorer is represented in the output blob, but 
 instead of having the BACnet addressing scheme for your simulated device, it has the physical address of the device.
 
 
 *Estimated time to complete: 20 minutes*
 
-## Exercise 3: Push the device data into an Event Historian table in SQL
-In this exercise, you will modify the Stream Analytics job to push data from your device to a table in SQL Azure. Here is a picture of this step in the end-to-end solution:
+## Step 3: Push the device data into an Event Historian table in SQL
+In this Step, you will modify the Stream Analytics job to push data from your device to a table in SQL Azure. Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="Images/exercise3-medium.png" alt="Exercise 1" width="320"/>
@@ -141,10 +105,10 @@ You have successfully completed this exercise if and only if the data that you s
 
 *Estimated time to complete: 10 minutes*
 
-## Exercise 4: Send the event history to a pivot table
+## Step 4: Send the event history to a pivot table
 
-In this exercise, you will create and execute a SQL Stored Procedure to take the raw event data and pivot into a format for easier consumption by Power BI. Physical devices will typically have many different sensors emitting data (for example air flow, input and output temperatures), and the pivot would be 
-more populated than you will see when sending a single sensor reading from your simulator, but we need to create the pivot files for use in subsequent exercises. In this step in creation of the end-to-end solution we will be working only in SQL Azure:
+In this Step, you will create and execute a SQL Stored Procedure to take the raw event data and pivot into a format for easier consumption by Power BI. Physical devices will typically have many different sensors emitting data (for example air flow, input and output temperatures), and the pivot would be 
+more populated than you will see when sending a single sensor reading from your simulator, but we need to create the pivot files for use in subsequent Steps. In this step in creation of the end-to-end solution we will be working only in SQL Azure:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="Images/exercise4-medium.png" alt="Exercise 1" width="80"/>
@@ -166,14 +130,14 @@ folder to create the SQL table `dbo.{Alias}Pivot_VAV` in the `tr24SmartBuilding`
 7. List the records in `dbo.{Alias}Pivot_VAV`.
 8. Send more records from your simulator, rerun the stored procedure, and verify the records are displayed in the pivot file. 
 
-You have successfully completed this exercise if and only if the data that you saw in `dbo.{Alias}EventHistorian` are represented in `dbo.{Alias}Pivot_VAV`.
+You have successfully completed this Step if and only if the data that you saw in `dbo.{Alias}EventHistorian` are represented in `dbo.{Alias}Pivot_VAV`.
 
 
 *Estimated time to complete: 10 minutes*
 
-## Exercise 5: Create Fault processing processes
+## Step 5: Create Fault processing processes
 
-In this exercise, you will create and execute a SQL Stored Procedure to take the pivoted event data and look for data indicative of problems in the equipment, known as 
+In this Step, you will create and execute a SQL Stored Procedure to take the pivoted event data and look for data indicative of problems in the equipment, known as 
 'Faults'. In this step in creation of the end-to-end solution we will again be working only in SQL Azure:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -193,12 +157,12 @@ folder to create the SQL table `dbo.{Alias}FaultInstances` in the `tr24SmartBuil
 6. Send more records from your simulator, but this time increase the temperature to above the threshold shown in the stored procedure, rerun the two stored procedures (`sp_{Alias}PopulateEquipmentPivots` and `sp_{Alias}PopulateFaultInstances`), and verify the records are displayed in the fault table. 
 
 
-You have successfully completed this exercise if and only if you are able to generate some faults that you can see in the fault table!
+You have successfully completed this step if and only if you are able to generate some faults that you can see in the fault table!
 
 
 *Estimated time to complete: 10 minutes*
 
-## Exercise 6: Create a Power BI dashboard
+## Step 6: Create a Power BI dashboard
 
 In this step in creation of the end-to-end solution we will again be working only in SQL Azure:
 
