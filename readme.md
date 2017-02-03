@@ -14,4 +14,6 @@ In order to clone, modify, and run the whole PCS you will need the following
 the simulator, not modify it, you do not need Visual Studio.  
 3. The [Device Explorer](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md#device-explorer) tool 
 
+## Getting Started ##
+Optional: Follow the steps in the [Getting Started](GettingStarted.md) guide to deploy the solution for the first time.
 
