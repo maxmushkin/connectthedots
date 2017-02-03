@@ -58,7 +58,7 @@ name `SpyrosLogAllEvents`.
 Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="images/TR24-e2e-medium.png" alt="End to end solution" width="800"/>
+<img src="images/e2e-medium.png" alt="End to end solution" width="800"/>
 
 In this workshop we will build this end-to-end solution in stages.
 
@@ -67,7 +67,7 @@ In this workshop we will build this end-to-end solution in stages.
 Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="images/TR24-exercise1-medium.png" alt="Exercise 1" width="500"/>
+<img src="images/exercise1-medium.png" alt="Exercise 1" width="500"/>
 
 
 Please follow these steps:
@@ -102,7 +102,7 @@ Please follow these steps:
 In this exercise, you will push data from the device into blob storage. Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="images/TR24-exercise2-medium.png" alt="Exercise 1" width="320"/>
+<img src="images/exercise2-medium.png" alt="Exercise 1" width="320"/>
 
 Please follow these steps:
 
@@ -124,7 +124,7 @@ instead of having the BACnet addressing scheme for your simulated device, it has
 In this exercise, you will modify the Stream Analytics job to push data from your device to a table in SQL Azure. Here is a picture of this step in the end-to-end solution:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="images/TR24-exercise3-medium.png" alt="Exercise 1" width="320"/>
+<img src="images/exercise3-medium.png" alt="Exercise 1" width="320"/>
 
 Please follow these steps:
 
@@ -147,7 +147,7 @@ In this exercise, you will create and execute a SQL Stored Procedure to take the
 more populated than you will see when sending a single sensor reading from your simulator, but we need to create the pivot files for use in subsequent exercises. In this step in creation of the end-to-end solution we will be working only in SQL Azure:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="images/TR24-exercise4-medium.png" alt="Exercise 1" width="80"/>
+<img src="images/exercise4-medium.png" alt="Exercise 1" width="80"/>
 
 
 Please follow these steps:
@@ -203,7 +203,7 @@ You have successfully completed this exercise if and only if you are able to gen
 In this step in creation of the end-to-end solution we will again be working only in SQL Azure:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="images/TR24-exercise6-medium.png" alt="Exercise 1" width="180"/>
+<img src="images/exercise6-medium.png" alt="Exercise 1" width="180"/>
 
 Please follow these steps:
 
